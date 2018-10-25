@@ -3,7 +3,7 @@
 <head>
   <title>Dog Social Network</title>
 </head>
-<body onload="location='login'">
+<body onload="location='dashboard'">
 Loading...
 </body>
 </html>
