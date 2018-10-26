@@ -25,4 +25,5 @@ cache:
 
 script:
 - ./gradlew assemble
-- ./gradlew check --rerun-task
+- ./gradlew clean build sonarqube -s
+- ./gradlew update
