@@ -24,3 +24,4 @@ cache:
 
 script:
 - ./gradlew assemble
+- ./gradlew clean build sonarqube -s
