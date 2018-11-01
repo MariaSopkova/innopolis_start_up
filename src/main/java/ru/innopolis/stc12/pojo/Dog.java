@@ -1,14 +1,18 @@
 package ru.innopolis.stc12.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Dog {
     private int id;
-    private int ownerId;
-    private int age;
     private String name;
-    private DogOwner owner;
-    private DogHandler handler;
-    private Date birthDate;
+    private int age;
+    private String gender;
     private String breed;
+    private Date birthDate;
+    private int exibitionId;
+    private int courceId;
+    private int motherId;
+    private int fatherId;
+    private ArrayList<Integer> childId;
 }

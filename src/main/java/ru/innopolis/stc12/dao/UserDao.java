@@ -1,8 +1,9 @@
 package ru.innopolis.stc12.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import ru.innopolis.stc12.pojo.User;
 
-public interface UserDao {
+public interface UserDao extends JpaRepository<User, Integer> {
     public User getUserByName();
 
     public User getUserBySurname();

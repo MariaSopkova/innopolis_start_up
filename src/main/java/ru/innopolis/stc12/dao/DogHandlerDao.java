@@ -1,8 +1,13 @@
 package ru.innopolis.stc12.dao;
 
+import ru.innopolis.stc12.pojo.DogHandler;
 import ru.innopolis.stc12.pojo.User;
 
 public class DogHandlerDao implements UserDao {
+    DogHandler dogHandler = new DogHandler();
+
+
+
     @Override
     public User getUserByName() {
         return null;
