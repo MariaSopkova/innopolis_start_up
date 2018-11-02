@@ -1,20 +1,27 @@
 package ru.innopolis.stc12.dao;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import ru.innopolis.stc12.pojo.User;
 
-public interface UserDao extends JpaRepository<User, Integer> {
-    public User getUserByName();
+import javax.sql.DataSource;
+import java.util.List;
 
-    public User getUserBySurname();
 
-    public User getUserById();
+public interface UserDao {
+    public void setDataSource(DataSource dataSource);
 
-    public boolean update(User user);
+    public User getUserByName(String name);
 
-    public boolean deleteUserById();
+    public User getUserByFamilyname(String familyName);
 
-    public boolean deleteUserByName();
+    public User getUserById(int id);
+
+    public boolean createUser(User user);
+
+    public boolean deleteUserById(int id);
+
+    public boolean deleteUserByName(String name);
 
     public boolean addUser(User user);
+
+    public List listUsers();
 }
