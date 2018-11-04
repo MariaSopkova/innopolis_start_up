@@ -11,20 +11,18 @@ public class UserMapper implements RowMapper {
     @Override
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         User user = new User();
-        user.setId(rs.getInt("id" ));
+        user.setId(rs.getInt("user_id"));
         user.setName(rs.getString("name" ));
         user.setFamilyName(rs.getString("family_name" ));
         user.setAge(rs.getInt("age" ));
-        user.setCity(rs.getString("city" ));
-        user.setEnabled(rs.getBoolean("Enabled" ));
+        user.setEnabled(rs.getBoolean("is_enabled"));
         user.setGender(rs.getString("gender" ));
+        user.setRole(rs.getString("role"));
         user.setLanguage(rs.getString("language" ));
-        user.setLastEnter(rs.getDate("last_enter" ));
-        user.setStartDate(rs.getDate("start_date" ));
-        user.setLogin(rs.getString("login" ));
         user.setPassword(rs.getString("password" ));
+        user.setLogin(rs.getString("login"));
+        user.setCity(rs.getString("city"));
         user.setPetId(rs.getInt("pet_id" ));
-        user.setRole(rs.getString("role" ));
         return user;
     }
 }
