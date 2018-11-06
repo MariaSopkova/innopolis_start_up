@@ -3,22 +3,21 @@ package ru.innopolis.stc12.dao;
  * Class for pets handler
  */
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.mappers.UserMapper;
 import ru.innopolis.stc12.pojo.User;
 
-import javax.sql.DataSource;
 import java.util.List;
 
+@Repository
 public class UserDaoImpl implements UserDao {
+    JdbcTemplate jdbcTemplate;
 
-    private DataSource dataSource;
-    private JdbcTemplate jdbcTemplate;
-
-    @Override
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    @Autowired
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
@@ -46,9 +45,15 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List listUsers() {
+    public List getUsersList() {
         List<User> users = jdbcTemplate.query("SELECT * FROM users", new UserMapper());
         return users;
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        User user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+        return user;
     }
 
     @Override

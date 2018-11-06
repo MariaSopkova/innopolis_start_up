@@ -31,9 +31,7 @@ public class User {
                 String password,
                 String login,
                 String city,
-                int petId,
-                Date startDate,
-                Date lastEnter) {
+                int petId) {
         this.name = name;
         this.familyName = familyName;
         this.age = age;
@@ -45,8 +43,6 @@ public class User {
         this.login = login;
         this.city = city;
         this.petId = petId;
-        this.startDate = startDate;
-        this.lastEnter = lastEnter;
     }
 
     public User() {
@@ -148,21 +144,6 @@ public class User {
         this.petId = petId;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getLastEnter() {
-        return lastEnter;
-    }
-
-    public void setLastEnter(Date lastEnter) {
-        this.lastEnter = lastEnter;
-    }
 
     @Override
     public String toString() {
@@ -179,8 +160,6 @@ public class User {
                 ", login='" + login + '\'' +
                 ", city='" + city + '\'' +
                 ", petId=" + petId +
-                ", startDate=" + startDate +
-                ", lastEnter=" + lastEnter +
                 '}';
     }
 }
