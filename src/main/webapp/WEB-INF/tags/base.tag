@@ -1,5 +1,6 @@
 <%@ tag description="Simple Wrapper Tag" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
   <meta charset="utf-8">
@@ -22,6 +23,21 @@
 </head>
 <body>
 <div class="container">
+  <div class="well">
+    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_DASHBOARD_VIEW)">
+      <a href="#">Dashboard</a>
+    </sec:authorize>
+
+    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
+      <a href="#">Profile</a>
+    </sec:authorize>
+
+    <sec:authorize access="isAuthenticated()">
+      <sec:authentication property="principal.username" />
+      <sec:authentication property="principal.role" />
+    </sec:authorize>
+  </div>
+
   <jsp:doBody/>
 </div>
 <!-- Bootstrap core JavaScript -->
