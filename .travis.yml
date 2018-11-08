@@ -12,6 +12,7 @@ os:
 branches:
   only:
    - development
+   - dev/feature/sonar
 
 before_cache:
 - rm -f $HOME/DogsStartUp/.gradle/caches/modules-2/modules-2.lock
@@ -24,3 +25,4 @@ cache:
 
 script:
 - ./gradlew assemble
+- ./gradlew clean build sonarqube -s
