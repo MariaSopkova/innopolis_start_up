@@ -29,7 +29,7 @@
     </sec:authorize>
 
     <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
-      <a href="#">Profile</a>
+      <a href="userpage">Profile</a>
     </sec:authorize>
 
     <sec:authorize access="isAuthenticated()">
