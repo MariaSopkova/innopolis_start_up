@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class DashboardController {
-  @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-  public String showLoginForm(
-      @RequestParam(value = "error", required = false) String error,
-      Model model) {
-    model.addAttribute("loginError", error);
-    return "dashboard";
-  }
+    @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
+    public String showLoginForm(
+            @RequestParam(value = "error", required = false) String error,
+            Model model) {
+        model.addAttribute("loginError", error);
+        return "dashboard";
+    }
 }

@@ -2,7 +2,6 @@ package ru.innopolis.stc12.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.mappers.StringMapper;
 import ru.innopolis.stc12.mappers.UserMapper;
 import ru.innopolis.stc12.pojo.User;

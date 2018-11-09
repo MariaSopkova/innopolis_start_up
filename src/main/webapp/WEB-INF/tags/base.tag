@@ -23,21 +23,6 @@
 </head>
 <body>
 <div class="container">
-  <div class="well">
-    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_DASHBOARD_VIEW)">
-      <a href="#">Dashboard</a>
-    </sec:authorize>
-
-    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
-      <a href="userpage">Profile</a>
-    </sec:authorize>
-
-    <sec:authorize access="isAuthenticated()">
-      <sec:authentication property="principal.username" />
-      <sec:authentication property="principal.role" />
-    </sec:authorize>
-  </div>
-
   <jsp:doBody/>
 </div>
 <!-- Bootstrap core JavaScript -->
