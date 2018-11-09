@@ -1,28 +1,23 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: m.biryukov
-  Date: 24.10.2018
-  Time: 20:17
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>User page</title>
-</head>
-<body>
-<table>
-    <TR>
-        <TD>${user.id}</TD>
-        <TD>${user.name}</TD>
-        <TD>${user.family_name}</TD>
-        <TD>${user.age}</TD>
-        <TD>${user.role}</TD>
-        <TD>${user.language}</TD>
-        <TD>${user.city}</TD>
-        <TD>${user.pet_id}</TD>
-    </TR>
-</table>
-</body>
-</html>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<t:base-page>
+    <div class="row">
+        <div class="col-3">
+            <div class="user-personal bg-light p-3 rounded">
+                <div class="user-logo mb-3">
+                    <div class="bg-dark w-auto h-25"><span class="text-light">User Photo</span></div>
+                </div>
+                <div class="user-personal-data">
+                    <h5>${user.name} ${user.familyName}</h5>
+                    <div class="personal-data--item">
+                        <div class="font-weight-bold">Дата</div>
+                        <div>01.01.2018</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">Other</div>
+    </div>
+
+</t:base-page>
+

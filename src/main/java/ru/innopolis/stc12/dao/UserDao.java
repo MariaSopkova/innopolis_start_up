@@ -6,21 +6,23 @@ import java.util.List;
 
 
 public interface UserDao {
-    public User getUserByName(String name);
+    User getUserByName(String name);
 
-    public User getUserByFamilyname(String familyName);
+    User getUserByFamilyname(String familyName);
 
-    public User getUserById(int id);
+    User getUserById(int id);
 
-    public boolean createUser(User user);
+    boolean createUser(User user);
 
-    public boolean deleteUserById(int id);
+    boolean deleteUserById(int id);
 
-    public boolean deleteUserByName(String name);
+    boolean deleteUserByName(String name);
 
-    public boolean addUser(User user);
+    boolean addUser(User user);
 
-    public List getUsersList();
+    List<User> getUsersList();
 
-    public User getUserByLogin(String login);
+    User getUserByLogin(String login);
+
+    List<String> getAuthorities(String login);
 }

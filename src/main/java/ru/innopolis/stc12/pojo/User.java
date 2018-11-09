@@ -1,11 +1,12 @@
 package ru.innopolis.stc12.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Class models for {@link User}
  */
-public class User {
+public class User implements Serializable {
     private int id;
     private String name;
     private String familyName;
@@ -156,7 +157,7 @@ public class User {
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", language='" + language + '\'' +
-                ", password='" + password + '\'' +
+                ", password=***" +
                 ", login='" + login + '\'' +
                 ", city='" + city + '\'' +
                 ", petId=" + petId +
