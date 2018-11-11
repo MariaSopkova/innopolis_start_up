@@ -1,7 +1,6 @@
 package ru.innopolis.stc12.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Class models for {@link User}
@@ -19,8 +18,7 @@ public class User implements Serializable {
     private String login;
     private String city;
     private int petId;
-    private Date startDate;
-    private Date lastEnter;
+
 
     public User(String name,
                 String familyName,
@@ -33,6 +31,7 @@ public class User implements Serializable {
                 String login,
                 String city,
                 int petId) {
+
         this.name = name;
         this.familyName = familyName;
         this.age = age;

@@ -71,5 +71,13 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    public boolean updateUser(User user) {
+        if (user.getId() != 0) {
+            //jdbcTemplate.update("UPDATE users SET name=?, family_name=? , age=?,is_enabled=?,gender=?,role=?,language=?,password=?,login=?,city=?,pet_id=? WHERE user_id=?");
+            return true;
+        }
+        return false;
+    }
+
 
 }
