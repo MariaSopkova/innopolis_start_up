@@ -19,6 +19,11 @@
                     <a class="nav-link" href="/userpage">Profile <span class="sr-only">Profile</span></a>
                 </li>
             </sec:authorize>
+            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_DASHBOARD_VIEW)">
+                <li class="nav-item">
+                    <a class="nav-link" href="/userslist">Users list <span class="sr-only">Users list</span></a>
+                </li>
+            </sec:authorize>
 
             <sec:authorize access="isAuthenticated()">
                 <li class="nav-item dropdown ">

@@ -5,7 +5,7 @@ import ru.innopolis.stc12.pojo.User;
 import java.util.List;
 
 public interface UserService {
-    List<User> getUserList();
+    List<User> getUsersList();
 
     User getUserByLogin(String login);
 
@@ -22,4 +22,8 @@ public interface UserService {
                  String login,
                  String city,
                  int petId);
+
+    boolean deleteUserById(int id);
+
+    boolean updateUser(User user);
 }
