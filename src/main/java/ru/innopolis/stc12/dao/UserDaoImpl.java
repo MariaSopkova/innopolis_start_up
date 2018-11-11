@@ -1,19 +1,18 @@
 package ru.innopolis.stc12.dao;
-/**
- * Class for pets handler
- */
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import ru.innopolis.stc12.mappers.StringMapper;
 import ru.innopolis.stc12.mappers.UserMapper;
 import ru.innopolis.stc12.pojo.User;
 
 import java.util.List;
 
-@Repository
+/**
+ * Class for pets handler
+ */
 public class UserDaoImpl implements UserDao {
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
@@ -22,38 +21,39 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        User user = (User) jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE user_id = ?", new Object[]{name}, new UserMapper());
-        return user;
+        return jdbcTemplate.queryForObject("SELECT * FROM USERS WHERE user_id = ?", new Object[]{name}, new UserMapper());
     }
 
     @Override
     public User getUserByFamilyname(String familyName) {
-        User user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE family_name = ?", new Object[]{familyName}, new UserMapper());
-        return user;
+        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE family_name = ?", new Object[]{familyName}, new UserMapper());
     }
 
     @Override
     public User getUserById(int id) {
-        User user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = ?", new Object[]{id}, new UserMapper());
-        return user;
+        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE user_id = ?", new Object[]{id}, new UserMapper());
     }
 
     @Override
     public boolean createUser(User user) {
-        jdbcTemplate.update("INSERT INTO users (name, family_name , age,is_enabled,gender,role,language,password,login,city,pet_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)" );
+        jdbcTemplate.update("INSERT INTO users (name, family_name , age,is_enabled,gender,role,language,password,login,city,pet_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
         return true;
     }
 
     @Override
-    public List getUsersList() {
-        List<User> users = jdbcTemplate.query("SELECT * FROM users", new UserMapper());
-        return users;
+    public List<User> getUsersList() {
+        return jdbcTemplate.query("SELECT * FROM users", new UserMapper());
     }
 
     @Override
     public User getUserByLogin(String login) {
-        User user = (User) jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
-        return user;
+        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+    }
+
+    @Override
+    public List<String> getAuthorities(String login) {
+        String sql = "SELECT ra.action FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = ?";
+        return jdbcTemplate.query(sql, new Object[]{login}, new StringMapper());
     }
 
     @Override

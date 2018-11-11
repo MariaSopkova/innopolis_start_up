@@ -5,6 +5,7 @@
 
     <!-- DataSource init-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url"
                   value="jdbc:postgresql://ec2-54-83-49-109.compute-1.amazonaws.com:5432/d4tlrjb6ekan6h?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
         <property name="username" value="xrsukaldefsdji"/>

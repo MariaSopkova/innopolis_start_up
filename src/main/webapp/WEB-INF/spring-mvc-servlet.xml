@@ -16,8 +16,6 @@
     <property name="prefix" value="/WEB-INF/pages/"/>
     <property name="suffix" value=".jsp"/>
   </bean>
-
-  <import resource="classpath:jdbc-config.xml"/>
   <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>
   <mvc:annotation-driven/>
 </beans>
