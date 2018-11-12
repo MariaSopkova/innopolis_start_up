@@ -1,11 +1,21 @@
-package ru.innopolis.stc12.service.page_info;
+package ru.innopolis.stc12.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
 
-public class RegistrationPageInfo {
+@Repository
+public class RegistrationPageInfoCheck {
     private RegistrationPageDTO registrationInfo;
+    private UserDao userDao;
 
-    public RegistrationPageInfo(String firstName, String surname, String login, String email, String password, String passwordDouble) {
+    @Autowired
+    public void setUserDAO(UserDao userDao){
+        this.userDao = userDao;
+    }
+
+    public void setRegistrationPageInfoData(String firstName, String surname, String login, String email, String password, String passwordDouble) {
         registrationInfo = new RegistrationPageDTO(firstName, surname, login, email, password, passwordDouble);
     }
 
@@ -46,7 +56,6 @@ public class RegistrationPageInfo {
     }
 
     public boolean isLoginUnique(){
-        return true;
+        return userDao.getUserByLogin(registrationInfo.getLogin()) == null;
     }
-
 }

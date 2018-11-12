@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import ru.innopolis.stc12.mappers.StringMapper;
 import ru.innopolis.stc12.mappers.UserMapper;
@@ -47,7 +48,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+        } catch( EmptyResultDataAccessException ex ) {
+            // данная ошибка возникает, когда не найдены записи по параметру
+            return null;
+        }
     }
 
     @Override

@@ -1,13 +1,22 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.innopolis.stc12.service.page_info.RegistrationPageInfo;
+import ru.innopolis.stc12.service.RegistrationPageInfoCheck;
 
 @Controller
 public class RegistrationController {
+    private RegistrationPageInfoCheck check;
+
+    @Autowired
+    public void setRegistrationPageInfoCheck(RegistrationPageInfoCheck check)
+    {
+        this.check = check;
+    }
+
     @PostMapping(value = "/registration")
     public String registrationCheck(
             @RequestParam(value = "firstName") String firstName,
@@ -17,21 +26,21 @@ public class RegistrationController {
             @RequestParam(value = "password") String password,
             @RequestParam(value = "passwordDouble") String passwordDouble,
             Model model){
-        RegistrationPageInfo pageInfo = new RegistrationPageInfo(firstName, surname, login, email, password, passwordDouble);
-        return checkDataAndSetErrorFields( model, pageInfo ) ? "/emailCheck" : "/registration";
+        check.setRegistrationPageInfoData(firstName, surname, login, email, password, passwordDouble);
+        return checkDataAndSetErrorFields(model) ? "/emailCheck" : "/registration";
     }
 
-    private boolean checkDataAndSetErrorFields(Model model, RegistrationPageInfo registrationPageInfo){
-        boolean result = checkFirstName(model, registrationPageInfo);
-        result &= checkSurname(model, registrationPageInfo);
-        result &= checkPassord(model, registrationPageInfo);
-        result &= checkEmail(model, registrationPageInfo);
-        result &= checkLogin(model, registrationPageInfo);
+    private boolean checkDataAndSetErrorFields(Model model){
+        boolean result = checkFirstName(model);
+        result &= checkSurname(model);
+        result &= checkPassord(model);
+        result &= checkEmail(model);
+        result &= checkLogin(model);
         return result;
     }
 
-    private boolean checkFirstName(Model model, RegistrationPageInfo registrationPageInfo){
-        if( !registrationPageInfo.isFirstNameEmpty() ) {
+    private boolean checkFirstName(Model model){
+        if( !check.isFirstNameEmpty() ) {
             return true;
         } else {
             model.addAttribute("firstNameError", "Не указано имя");
@@ -39,8 +48,8 @@ public class RegistrationController {
         }
     }
 
-    private boolean checkSurname(Model model, RegistrationPageInfo registrationPageInfo){
-        if( !registrationPageInfo.isSurnameEmpty() ) {
+    private boolean checkSurname(Model model){
+        if( !check.isSurnameEmpty() ) {
             return true;
         } else {
             model.addAttribute("surnameError", "Не указана фамилия");
@@ -48,43 +57,43 @@ public class RegistrationController {
         }
     }
 
-    private boolean checkPassord(Model model, RegistrationPageInfo registrationPageInfo){
+    private boolean checkPassord(Model model){
         boolean result = true;
-        if( registrationPageInfo.isPasswordEmpty() ) {
+        if( check.isPasswordEmpty() ) {
             model.addAttribute("passwordError", "Не введен пароль");
             result = false;
         }
-        if( registrationPageInfo.isPasswordDoubleEmpty() ) {
+        if( check.isPasswordDoubleEmpty() ) {
             model.addAttribute("passwordDoubleError", "Не введен пароль");
             result = false;
         }
-        if( result && !registrationPageInfo.isPasswordEquals()){
+        if( result && !check.isPasswordEquals()){
             model.addAttribute("passwordDoubleError", "Пароли не совпадают");
             result = false;
         }
         return result;
     }
 
-    private boolean checkEmail(Model model, RegistrationPageInfo registrationPageInfo){
-        if( registrationPageInfo.isEmailEmpty() ){
+    private boolean checkEmail(Model model){
+        if( check.isEmailEmpty() ){
             model.addAttribute("emailError", "Не указан адрес почты");
             return false;
-        } else if (!registrationPageInfo.isEmailValid()){
+        } else if (!check.isEmailValid()){
             model.addAttribute("emailError", "Указан не корректный адрес электроннной почты");
             return false;
-        } else if (!registrationPageInfo.isEmailUnique()){
+        } else if (!check.isEmailUnique()){
             model.addAttribute("emailError", "Данный emal уже используется");
             return false;
         }
         return true;
     }
 
-    private boolean checkLogin(Model model, RegistrationPageInfo registrationPageInfo){
-        if( registrationPageInfo.isLoginEmpty() ){
+    private boolean checkLogin(Model model){
+        if( check.isLoginEmpty() ){
             model.addAttribute("loginError", "Не указан логин");
             return false;
-        } else if (!registrationPageInfo.isLoginUnique()){
-            model.addAttribute("loginError", "Данный emal уже используется");
+        } else if (!check.isLoginUnique()){
+            model.addAttribute("loginError", "Данный email уже используется");
             return false;
         }
         return true;
