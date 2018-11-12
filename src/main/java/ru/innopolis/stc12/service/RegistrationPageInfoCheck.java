@@ -5,10 +5,16 @@ import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Repository
 public class RegistrationPageInfoCheck {
     private RegistrationPageDTO registrationInfo;
     private UserDao userDao;
+    private static final String EMAIL_PATTERN =
+            "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
+                    "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
     @Autowired
     public void setUserDAO(UserDao userDao){
@@ -48,11 +54,13 @@ public class RegistrationPageInfoCheck {
     }
 
     public boolean isEmailUnique(){
-        return true;
+        return userDao.getUserByEmail(registrationInfo.getEmail()) == null;
     }
 
     public boolean isEmailValid(){
-        return true;
+        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+        Matcher matcher = pattern.matcher(registrationInfo.getEmail());
+        return matcher.matches();
     }
 
     public boolean isLoginUnique(){

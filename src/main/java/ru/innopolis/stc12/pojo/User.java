@@ -21,6 +21,8 @@ public class User implements Serializable {
     private int petId;
     private Date startDate;
     private Date lastEnter;
+    private String email;
+    private String phone;
 
     public User(String name,
                 String familyName,
@@ -31,6 +33,8 @@ public class User implements Serializable {
                 String language,
                 String password,
                 String login,
+                String email,
+                String phone,
                 String city,
                 int petId) {
         this.name = name;
@@ -146,6 +150,22 @@ public class User implements Serializable {
     }
 
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -160,7 +180,9 @@ public class User implements Serializable {
                 ", password=***" +
                 ", login='" + login + '\'' +
                 ", city='" + city + '\'' +
-                ", petId=" + petId +
+                ", petId=" + petId + '\'' +
+                ", email=" + email + '\'' +
+                ", phone=" + phone +
                 '}';
     }
 }

@@ -57,6 +57,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
+    public User getUserByEmail(String login) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = ?", new Object[]{login}, new UserMapper());
+        } catch( EmptyResultDataAccessException ex ) {
+            // данная ошибка возникает, когда не найдены записи по параметру
+            return null;
+        }
+    }
+
+    @Override
     public List<String> getAuthorities(String login) {
         String sql = "SELECT ra.action FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = ?";
         return jdbcTemplate.query(sql, new Object[]{login}, new StringMapper());

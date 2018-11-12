@@ -24,5 +24,7 @@ public interface UserDao {
 
     User getUserByLogin(String login);
 
+    User getUserByEmail(String email);
+
     List<String> getAuthorities(String login);
 }
