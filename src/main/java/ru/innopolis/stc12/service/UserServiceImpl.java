@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserList() {
+    public List<User> getUsersList() {
         return userDao.getUsersList();
     }
 
@@ -46,5 +46,15 @@ public class UserServiceImpl implements UserService {
                 city,
                 petId);
         userDao.addUser(newUser);
+    }
+
+    @Override
+    public boolean deleteUserById(int id) {
+        return userDao.deleteUserById(id);
+    }
+
+    @Override
+    public boolean updateUser(User user) {
+        return userDao.updateUser(user);
     }
 }

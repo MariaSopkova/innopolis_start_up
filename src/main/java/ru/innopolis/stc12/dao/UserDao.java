@@ -26,4 +26,5 @@ public interface UserDao {
 
     List<String> getAuthorities(String login);
 
+    boolean updateUser(User user);
 }

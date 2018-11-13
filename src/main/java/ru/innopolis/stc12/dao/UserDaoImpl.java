@@ -58,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean deleteUserById(int id) {
-        return false;
+        return jdbcTemplate.update("DELETE FROM users WHERE user_id = ?", new Object[]{id}) == 1;
     }
 
     @Override
@@ -71,8 +71,11 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    @Override
     public boolean updateUser(User user) {
-        return true;
+        String sql = "UPDATE users SET name = ?, family_name = ? , age = ?, is_enabled = ?, gender = ?, role = ?, language = ?, password = ?, login = ?, city = ?, pet_id = ? WHERE user_id = ? ";
+        Object[] obj = new Object[]{user.getName(), user.getFamilyName(), user.getAge(), user.isEnabled(), user.getGender(), user.getRole(), user.getLanguage(), user.getPassword(), user.getLogin(), user.getCity(), user.getPetId(), user.getId()};
+        return jdbcTemplate.update(sql, obj) == 1;
     }
 
 }
