@@ -71,5 +71,8 @@ public class UserDaoImpl implements UserDao {
         return false;
     }
 
+    public boolean updateUser(User user) {
+        return true;
+    }
 
 }
