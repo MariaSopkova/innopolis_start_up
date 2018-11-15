@@ -2,7 +2,7 @@ package ru.innopolis.stc12.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import ru.innopolis.stc12.mappers.StringMapper;
+import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.mappers.UserMapper;
 import ru.innopolis.stc12.pojo.User;
 
@@ -11,6 +11,7 @@ import java.util.List;
 /**
  * Class for pets handler
  */
+@Repository
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
 
@@ -48,12 +49,6 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByLogin(String login) {
         return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
-    }
-
-    @Override
-    public List<String> getAuthorities(String login) {
-        String sql = "SELECT ra.action FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = ?";
-        return jdbcTemplate.query(sql, new Object[]{login}, new StringMapper());
     }
 
     @Override
