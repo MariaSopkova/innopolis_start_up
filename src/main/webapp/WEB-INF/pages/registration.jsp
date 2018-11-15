@@ -9,12 +9,12 @@
 
       <div class="form-group">
               ${firstNameError}
-        <input type="text" name="firstName" id="firstName" tabindex="1" class="form-control"
+        <input accept-charset="UTF-8" type="text" name="firstName" id="firstName" tabindex="1" class="form-control"
                placeholder="Имя" value="">
       </div>
       <div class="form-group">
           ${surnameError}
-        <input type="text" name="surname" id="surname" tabindex="2" class="form-control"
+        <input accept-charset="UTF-8" type="text" name="surname" id="surname" tabindex="2" class="form-control"
                placeholder="Фамилия" value="">
       </div>
       <div class="form-group">

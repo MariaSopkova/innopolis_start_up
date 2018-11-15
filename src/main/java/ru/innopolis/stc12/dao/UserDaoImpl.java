@@ -37,7 +37,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean createUser(User user) {
-        jdbcTemplate.update("INSERT INTO users (name, family_name , age,is_enabled,gender,role,language,password,login,city,pet_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        jdbcTemplate.update("INSERT INTO users (name, family_name, age, is_enabled, gender, role, language, login, password, email, phone, city, pet_id) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                user.getName(),
+                user.getFamilyName(),
+                user.getAge(),
+                user.isEnabled(),
+                user.getGender(),
+                user.getRole(),
+                user.getLanguage(),
+                user.getLogin(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getCity(),
+                user.getPetId());
         return true;
     }
 
@@ -86,6 +100,4 @@ public class UserDaoImpl implements UserDao {
     public boolean addUser(User user) {
         return false;
     }
-
-
 }

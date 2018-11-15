@@ -1,4 +1,4 @@
-package ru.innopolis.stc12.service;
+package ru.innopolis.stc12.service.registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -65,5 +65,9 @@ public class RegistrationPageInfoCheck {
 
     public boolean isLoginUnique(){
         return userDao.getUserByLogin(registrationInfo.getLogin()) == null;
+    }
+
+    public RegistrationPageDTO getRegistrationInfo() {
+        return registrationInfo;
     }
 }

@@ -20,6 +20,8 @@ public interface UserService {
                  String language,
                  String password,
                  String login,
+                 String email,
+                 String phone,
                  String city,
                  int petId);
 }
