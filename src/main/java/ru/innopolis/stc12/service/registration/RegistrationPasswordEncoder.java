@@ -13,7 +13,6 @@ public class RegistrationPasswordEncoder {
     }
 
     public String encode(String password){
-        passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
 }

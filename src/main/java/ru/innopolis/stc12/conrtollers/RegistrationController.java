@@ -120,7 +120,7 @@ public class RegistrationController {
     private boolean addUser(){
         RegistrationPageDTO userDto = check.getRegistrationInfo();
         userDto.setPassword(registationPasswordEncoder.encode(userDto.getPassword()));
-        userDto.setPasswordDouble(registationPasswordEncoder.encode(userDto.getPasswordDouble()));
+        userDto.setPasswordDouble(userDto.getPassword());
         return registrationPageBDWorker.addUser(userDto);
     }
 }

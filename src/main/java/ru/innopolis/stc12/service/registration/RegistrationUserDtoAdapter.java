@@ -11,7 +11,7 @@ public class RegistrationUserDtoAdapter {
          user.setEmail(pageDTO.getEmail());
          user.setLogin(pageDTO.getLogin());
          user.setPassword(pageDTO.getPassword());
-         user.setEnabled(false);
+         user.setEnabled(true);
          return user;
      }
 }
