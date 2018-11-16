@@ -15,8 +15,6 @@
         <beans:property name="userDao" ref="userDao"/>
     </beans:bean>
 
-    <global-method-security secured-annotations="enabled"/>
-
     <authentication-manager>
         <authentication-provider user-service-ref="userDetails">
             <password-encoder ref="passwordEncoder"/>
@@ -28,7 +26,9 @@
     <http pattern="/resources/**" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
 
-    <http auto-config="false" use-expressions="true" disable-url-rewriting="false">
+    <http auto-config="false"
+          use-expressions="true"
+          disable-url-rewriting="false">
         <csrf disabled="true"/>
         <headers disabled="true"/>
         <intercept-url pattern="/**" access="isFullyAuthenticated()"/>

@@ -9,33 +9,37 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav flex-grow-1">
-
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard">Главная <span class="sr-only">Главная</span></a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="/userpage">Профиль <span class="sr-only">Профиль</span></a>
-            </li>
-
-
-            <li class="nav-item">
-                <a class="nav-link" href="/userslist">Пользователи <span class="sr-only">Пользователи</span></a>
-            </li>
-
+            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_DASHBOARD_VIEW)">
+                <li class="nav-item">
+                    <a class="nav-link" href="/dashboard">Главная <span class="sr-only">Главная</span></a>
+                </li>
+            </sec:authorize>
+            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
+                <li class="nav-item">
+                    <a class="nav-link" href="/userpage">Профиль <span class="sr-only">Профиль</span></a>
+                </li>
+            </sec:authorize>
+            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_LIST_VIEW)">
+                <li class="nav-item">
+                    <a class="nav-link" href="/userslist">Пользователи <span class="sr-only">Пользователи</span></a>
+                </li>
+            </sec:authorize>
         </ul>
         <ul class="navbar-nav">
+            <sec:authorize access="isAuthenticated()">
+                <li class="nav-item dropdown ">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <sec:authentication property="principal.username"/>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item text-danger" href="/static/j_spring_security_logout">Выйти</a>
+                    </div>
+                </li>
+                <li class="nav-item">
 
-            <li class="nav-item dropdown ">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    asdasd
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item text-danger" href="/static/j_spring_security_logout">Выйти</a>
-                </div>
-            </li>
-
+                </li>
+            </sec:authorize>
         </ul>
     </div>
 </nav>

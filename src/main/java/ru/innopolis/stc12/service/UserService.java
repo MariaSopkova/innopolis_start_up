@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService {
 
+    @Secured(Actions.USER_LIST_VIEW)
     List<User> getUsersList();
 
     User getUserByLogin(String login);

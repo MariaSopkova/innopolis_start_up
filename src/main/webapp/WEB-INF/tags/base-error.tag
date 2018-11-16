@@ -1,4 +1,4 @@
-<%@ tag description="Simple Wrapper Tag" pageEncoding="UTF-8" %>
+  <%@ tag description="Simple Wrapper Tag" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>

@@ -16,11 +16,9 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/spring-mvc-servlet.xml
-            /WEB-INF/spring-ui-security.xml
             /WEB-INF/jdbc-config.xml
+            /WEB-INF/spring-ui-security.xml
         </param-value>
-
     </context-param>
 
     <servlet>
