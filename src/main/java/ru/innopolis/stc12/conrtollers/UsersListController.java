@@ -36,7 +36,6 @@ public class UsersListController {
         return "userslist";
     }
 
-    //первые впечатления - смешанные, для простых связей удобно, а потом сопровождать и менять - вдруг не обновится таблица и куча проблем
     @RequestMapping(value = "/removeuser/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") int id, Model model) {
         userService.deleteUserById(id);
