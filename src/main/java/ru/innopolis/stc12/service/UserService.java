@@ -1,10 +1,14 @@
 package ru.innopolis.stc12.service;
 
+import org.springframework.security.access.annotation.Secured;
 import ru.innopolis.stc12.pojo.User;
+import ru.innopolis.stc12.security.Actions;
 
 import java.util.List;
 
 public interface UserService {
+
+    @Secured(Actions.USER_LIST_VIEW)
     List<User> getUsersList();
 
     User getUserByLogin(String login);
