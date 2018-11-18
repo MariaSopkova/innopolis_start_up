@@ -3,7 +3,7 @@ package ru.innopolis.stc12.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import ru.innopolis.stc12.mappers.StringMapper;
+import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.mappers.UserMapper;
 import ru.innopolis.stc12.pojo.User;
 
@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Class for pets handler
  */
+@Repository
 public class UserDaoImpl implements UserDao {
     private JdbcTemplate jdbcTemplate;
 
@@ -81,14 +82,8 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<String> getAuthorities(String login) {
-        String sql = "SELECT ra.action FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = ?";
-        return jdbcTemplate.query(sql, new Object[]{login}, new StringMapper());
-    }
-
-    @Override
     public boolean deleteUserById(int id) {
-        return false;
+        return jdbcTemplate.update("DELETE FROM users WHERE user_id = ?", new Object[]{id}) == 1;
     }
 
     @Override
@@ -100,4 +95,12 @@ public class UserDaoImpl implements UserDao {
     public boolean addUser(User user) {
         return false;
     }
+
+    @Override
+    public boolean updateUser(User user) {
+        String sql = "UPDATE users SET name = ?, family_name = ? , age = ?, is_enabled = ?, gender = ?, role = ?, language = ?, password = ?, login = ?, city = ?, pet_id = ? WHERE user_id = ? ";
+        Object[] obj = new Object[]{user.getName(), user.getFamilyName(), user.getAge(), user.isEnabled(), user.getGender(), user.getRole(), user.getLanguage(), user.getPassword(), user.getLogin(), user.getCity(), user.getPetId(), user.getId()};
+        return jdbcTemplate.update(sql, obj) == 1;
+    }
+
 }

@@ -37,6 +37,7 @@ public class User implements Serializable {
                 String phone,
                 String city,
                 int petId) {
+
         this.name = name;
         this.familyName = familyName;
         this.age = age;
