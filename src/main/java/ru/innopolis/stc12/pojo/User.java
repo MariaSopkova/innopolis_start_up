@@ -180,7 +180,6 @@ public class User implements Serializable {
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", language='" + language + '\'' +
-                ", password=***" +
                 ", login='" + login + '\'' +
                 ", city='" + city + '\'' +
                 ", petId=" + petId + '\'' +
