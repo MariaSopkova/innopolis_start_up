@@ -8,7 +8,7 @@
  http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
     <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
-    <beans:bean id="userDao" class="ru.innopolis.stc12.dao.UserDaoImpl">
+    <beans:bean id="userDao" class="ru.innopolis.stc12.security.dao.AuthUserDaoImpl">
         <beans:property name="jdbcTemplate" ref="jdbcTemplate"/>
     </beans:bean>
     <beans:bean id="userDetails" class="ru.innopolis.stc12.security.service.AuthUserDetailsService">
