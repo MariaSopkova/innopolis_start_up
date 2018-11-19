@@ -19,8 +19,6 @@
         <beans:property name="passwordEncoder" ref="passwordEncoder"/>
     </beans:bean>
 
-    <global-method-security secured-annotations="enabled"/>
-
     <authentication-manager>
         <authentication-provider user-service-ref="userDetails">
             <password-encoder ref="passwordEncoder"/>
