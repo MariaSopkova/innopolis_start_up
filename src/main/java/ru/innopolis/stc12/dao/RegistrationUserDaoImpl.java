@@ -1,13 +1,13 @@
-package ru.innopolis.stc12.service.registration;
+package ru.innopolis.stc12.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import ru.innopolis.stc12.dao.UserDao;
+import org.springframework.stereotype.Service;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
 import ru.innopolis.stc12.pojo.User;
+import ru.innopolis.stc12.service.registration.RegistrationUserDtoAdapter;
 
-@Repository
-public class RegistrationPageBDWorker {
+@Service
+public class RegistrationUserDaoImpl implements RegistrationUserDao {
 
     private UserDao userDao;
 
@@ -20,5 +20,4 @@ public class RegistrationPageBDWorker {
         User user = RegistrationUserDtoAdapter.convertUserDtpToUserPojo(pageDTO);
         return userDao.createUser(user);
     }
-
 }

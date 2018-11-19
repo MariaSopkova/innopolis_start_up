@@ -6,25 +6,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
-import ru.innopolis.stc12.service.registration.RegistrationPageBDWorker;
-import ru.innopolis.stc12.service.registration.RegistrationPageInfoCheck;
+import ru.innopolis.stc12.service.registration.UserRegistrationService;
 import ru.innopolis.stc12.service.registration.RegistrationPasswordEncoder;
+import ru.innopolis.stc12.dao.RegistrationUserDao;
 
 @Controller
 public class RegistrationController {
-    private RegistrationPageInfoCheck check;
-    private RegistrationPageBDWorker registrationPageBDWorker;
+    private UserRegistrationService check;
+    private RegistrationUserDao registrationUserDao;
     private RegistrationPasswordEncoder registationPasswordEncoder;
 
     @Autowired
-    public void setRegistrationPageInfoCheck(RegistrationPageInfoCheck check)
+    public void setUserRegistrationService(UserRegistrationService check)
     {
         this.check = check;
     }
 
     @Autowired
-    public void setRegistrationPageBDWorker(RegistrationPageBDWorker registrationPageBDWorker) {
-        this.registrationPageBDWorker = registrationPageBDWorker;
+    public void setRegistrationUserDao(RegistrationUserDao registrationUserDao) {
+        this.registrationUserDao = registrationUserDao;
     }
 
     @Autowired
@@ -121,6 +121,6 @@ public class RegistrationController {
         RegistrationPageDTO userDto = check.getRegistrationInfo();
         userDto.setPassword(registationPasswordEncoder.encode(userDto.getPassword()));
         userDto.setPasswordDouble(userDto.getPassword());
-        return registrationPageBDWorker.addUser(userDto);
+        return registrationUserDao.addUser(userDto);
     }
 }
