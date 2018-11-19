@@ -33,7 +33,7 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.9.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.2.9.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.9.RELEASE'
-    compile group: 'com.github.jsimone:webapp-runner:8.5.11.3'
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
     compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
 
 }
@@ -52,5 +52,3 @@ task copyToLib(type: Copy) {
 }
 
 stage.dependsOn(copyToLib)
-
-

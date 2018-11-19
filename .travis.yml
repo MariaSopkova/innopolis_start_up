@@ -11,7 +11,7 @@ os:
 
 branches:
   only:
-   - development
+  - development
 
 before_cache:
 - rm -f $HOME/DogsStartUp/.gradle/caches/modules-2/modules-2.lock
