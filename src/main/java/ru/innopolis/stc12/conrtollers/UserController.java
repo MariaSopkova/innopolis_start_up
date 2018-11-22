@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.conrtollers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.innopolis.stc12.pojo.User;
+import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.security.SecurityUtils;
 import ru.innopolis.stc12.service.UserService;
 
@@ -20,6 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @Secured(Actions.USER_PROFILE_VIEW)
     @RequestMapping(value = "/userpage", method = RequestMethod.GET)
     public String showUserPage(Model model) {
         model.addAttribute("user", userService.getUserByLogin(SecurityUtils.getAuthenticatedUsername()));
@@ -29,6 +32,7 @@ public class UserController {
     /*
      * Обработка при перезходе на страницу редактирования
      * */
+    @Secured({Actions.USER_PROFILE_EDIT, Actions.USER_PROFILE_VIEW})
     @RequestMapping(value = "/useredit/{id}", method = RequestMethod.GET)
     public String editUserPage(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.getUserById(id));
@@ -38,6 +42,7 @@ public class UserController {
     /*
      *Обработка нажатия кнопки "Сохранить"
      */
+    @Secured({Actions.USER_PROFILE_EDIT, Actions.USER_PROFILE_VIEW})
     @RequestMapping(value = "/submit/{id}", method = RequestMethod.POST)
     public String updateUser(
             @PathVariable("id") int id,
