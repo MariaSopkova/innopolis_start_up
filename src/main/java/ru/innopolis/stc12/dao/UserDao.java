@@ -26,5 +26,7 @@ public interface UserDao {
 
     User getUserByLogin(String login);
 
+    User getUserByEmail(String email);
+
     boolean updateUser(User user);
 }

@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Class models for {@link User}
@@ -19,7 +20,8 @@ public class User implements Serializable {
     private String city;
     private int petId;
     private String avaLink;
-
+    private String email;
+    private String phone;
 
     public User(String name,
                 String familyName,
@@ -30,6 +32,8 @@ public class User implements Serializable {
                 String language,
                 String password,
                 String login,
+                String email,
+                String phone,
                 String city,
                 int petId, String avaLink) {
 
@@ -42,6 +46,8 @@ public class User implements Serializable {
         this.language = language;
         this.password = password;
         this.login = login;
+        this.email = email;
+        this.phone = phone;
         this.city = city;
         this.petId = petId;
         this.avaLink = avaLink;
@@ -147,6 +153,22 @@ public class User implements Serializable {
     }
 
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -158,10 +180,11 @@ public class User implements Serializable {
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", language='" + language + '\'' +
-                ", password=***" +
                 ", login='" + login + '\'' +
                 ", city='" + city + '\'' +
-                ", petId=" + petId +
+                ", petId=" + petId + '\'' +
+                ", email=" + email + '\'' +
+                ", phone=" + phone +
                 '}';
     }
 

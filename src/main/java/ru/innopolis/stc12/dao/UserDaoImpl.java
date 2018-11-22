@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.mappers.UserMapper;
@@ -37,7 +38,21 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean createUser(User user) {
-        jdbcTemplate.update("INSERT INTO users (name, family_name , age,is_enabled,gender,role,language,password,login,city,pet_id) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        jdbcTemplate.update("INSERT INTO users (name, family_name, age, is_enabled, gender, role, language, login, password, email, phone, city, pet_id) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                user.getName(),
+                user.getFamilyName(),
+                user.getAge(),
+                user.isEnabled(),
+                user.getGender(),
+                user.getRole(),
+                user.getLanguage(),
+                user.getLogin(),
+                user.getPassword(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getCity(),
+                user.getPetId());
         return true;
     }
 
@@ -48,7 +63,22 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
+        } catch( EmptyResultDataAccessException ex ) {
+            // данная ошибка возникает, когда не найдены записи по параметру
+            return null;
+        }
+    }
+
+    @Override
+    public User getUserByEmail(String login) {
+        try{
+            return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = ?", new Object[]{login}, new UserMapper());
+        } catch( EmptyResultDataAccessException ex ) {
+            // данная ошибка возникает, когда не найдены записи по параметру
+            return null;
+        }
     }
 
     @Override
