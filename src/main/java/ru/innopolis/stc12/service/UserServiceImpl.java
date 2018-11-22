@@ -36,7 +36,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(String name, String familyName, int age, boolean isEnabled, String gender, String role, String language, String password, String login, String city, int petId) {
+    public void addUser(String name, String familyName, int age, boolean isEnabled, String gender, String role, String language, String password, String login, String email, String phone, String city, int petId) {
         User newUser = new User(name,
                 familyName,
                 age,
@@ -46,6 +46,8 @@ public class UserServiceImpl implements UserService {
                 language,
                 password,
                 login,
+                email,
+                phone,
                 city,
                 petId);
         userDao.addUser(newUser);
