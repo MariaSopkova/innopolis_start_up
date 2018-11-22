@@ -18,6 +18,7 @@ public class User implements Serializable {
     private String login;
     private String city;
     private int petId;
+    private String avaLink;
 
 
     public User(String name,
@@ -30,7 +31,7 @@ public class User implements Serializable {
                 String password,
                 String login,
                 String city,
-                int petId) {
+                int petId, String avaLink) {
 
         this.name = name;
         this.familyName = familyName;
@@ -43,6 +44,7 @@ public class User implements Serializable {
         this.login = login;
         this.city = city;
         this.petId = petId;
+        this.avaLink = avaLink;
     }
 
     public User() {
@@ -161,5 +163,13 @@ public class User implements Serializable {
                 ", city='" + city + '\'' +
                 ", petId=" + petId +
                 '}';
+    }
+
+    public String getAvaLink() {
+        return avaLink;
+    }
+
+    public void setAvaLink(String avaLink) {
+        this.avaLink = avaLink;
     }
 }

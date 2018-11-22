@@ -23,6 +23,7 @@ public class UserMapper implements RowMapper<User> {
         user.setLogin(rs.getString("login"));
         user.setCity(rs.getString("city"));
         user.setPetId(rs.getInt("pet_id"));
+        user.setAvaLink(rs.getString("ava_link"));
         return user;
     }
 }

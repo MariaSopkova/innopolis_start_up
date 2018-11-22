@@ -21,7 +21,8 @@ public interface UserService {
                  String password,
                  String login,
                  String city,
-                 int petId);
+                 int petId,
+                 String avaLink);
 
     boolean deleteUserById(int id);
 
