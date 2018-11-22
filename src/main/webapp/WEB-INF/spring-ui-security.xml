@@ -15,10 +15,6 @@
         <beans:property name="userDao" ref="userDao"/>
     </beans:bean>
 
-    <beans:bean class="ru.innopolis.stc12.service.registration.RegistrationPasswordEncoder">
-        <beans:property name="passwordEncoder" ref="passwordEncoder"/>
-    </beans:bean>
-
     <authentication-manager>
         <authentication-provider user-service-ref="userDetails">
             <password-encoder ref="passwordEncoder"/>

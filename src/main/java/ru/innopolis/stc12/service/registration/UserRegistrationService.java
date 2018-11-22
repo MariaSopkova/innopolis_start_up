@@ -3,27 +3,27 @@ package ru.innopolis.stc12.service.registration;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
 
 public interface UserRegistrationService {
-    public void setRegistrationPageInfoData(String firstName, String surname, String login, String email, String password, String passwordDouble);
+    boolean addUser(RegistrationPageDTO pageDTO);
 
-    public boolean isFirstNameEmpty();
+    RegistrationPageDTO createRegistrationPageInfoData(String firstName, String surname, String login, String email, String password, String passwordDouble);
 
-    public boolean isSurnameEmpty();
+    boolean isFirstNameEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isLoginEmpty();
+    boolean isSurnameEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isEmailEmpty();
+    boolean isLoginEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isPasswordEmpty();
+    boolean isEmailEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isPasswordDoubleEmpty();
+    boolean isPasswordEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isPasswordEquals();
+    boolean isPasswordDoubleEmpty(RegistrationPageDTO registrationInfo);
 
-    public boolean isEmailUnique();
+    boolean isPasswordEquals(RegistrationPageDTO registrationInfo);
 
-    public boolean isEmailValid();
+    boolean isEmailUnique(RegistrationPageDTO registrationInfo);
 
-    public boolean isLoginUnique();
+    boolean isEmailValid(RegistrationPageDTO registrationInfo);
 
-    public RegistrationPageDTO getRegistrationInfo();
+    boolean isLoginUnique(RegistrationPageDTO registrationInfo);
 }
