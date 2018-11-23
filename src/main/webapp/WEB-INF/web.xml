@@ -57,26 +57,26 @@
 
     <error-page>
         <error-code>401</error-code>
-        <location>/errors/error-401.jsp</location>
+        <location>/401</location>
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <location>/errors/error-403.jsp</location>
+        <location>/403</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
-        <location>/errors/error-404.jsp</location>
+        <location>/404</location>
     </error-page>
     <error-page>
         <error-code>410</error-code>
-        <location>/errors/error-410.jsp</location>
+        <location>/410</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/errors/error-500.jsp</location>
+        <location>/500</location>
     </error-page>
     <error-page>
         <error-code>503</error-code>
-        <location>/errors/error-503.jsp</location>
+        <location>/503</location>
     </error-page>
 </web-app>
