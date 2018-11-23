@@ -12,44 +12,42 @@ import java.util.function.Predicate;
 
 @Controller
 public class ErrorMessageController {
-    String path = "errors/error-";
-    private Environment environment;
+    private static final String PATH = "errors/error-";
     private boolean isProd;
 
     @Autowired
     public void setEnvironment(Environment environment) {
-        this.environment = environment;
         isProd = Arrays.stream(environment.getActiveProfiles()).anyMatch(Predicate.isEqual("prod"));
     }
 
     @RequestMapping(value = "/401", method = RequestMethod.GET)
     public String error401(Model model) {
-        return path + "401";
+        return PATH + "401";
     }
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String error403(Model model) {
-        return path + "403";
+        return PATH + "403";
     }
 
     @RequestMapping(value = "/404", method = RequestMethod.GET)
     public String error404(Model model) {
-        return path + "404";
+        return PATH + "404";
     }
 
     @RequestMapping(value = "/410", method = RequestMethod.GET)
     public String error410(Model model) {
-        return path + "410";
+        return PATH + "410";
     }
 
     @RequestMapping(value = "/500", method = RequestMethod.GET)
     public String error500(Model model) {
         model.addAttribute("showError", !isProd);
-        return path + "500";
+        return PATH + "500";
     }
 
     @RequestMapping(value = "/503", method = RequestMethod.GET)
     public String error503(Model model) {
-        return path + "503";
+        return PATH + "503";
     }
 }
