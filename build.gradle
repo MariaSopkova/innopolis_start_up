@@ -33,6 +33,22 @@ dependencies {
     compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.2.9.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-taglibs', version: '4.2.9.RELEASE'
     compile group: 'org.springframework.security', name: 'spring-security-config', version: '4.2.9.RELEASE'
+    compile 'com.github.jsimone:webapp-runner:8.5.11.3'
     compile group: 'postgresql', name: 'postgresql', version: '9.1-901-1.jdbc4'
 
 }
+
+task stage() {
+    dependsOn clean, war
+}
+
+war.mustRunAfter clean
+
+task copyToLib(type: Copy) {
+    into "$buildDir/libs"
+    from(configurations.compile) {
+        include "webapp-runner*"
+    }
+}
+
+stage.dependsOn(copyToLib)
