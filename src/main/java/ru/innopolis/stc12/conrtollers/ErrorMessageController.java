@@ -20,33 +20,33 @@ public class ErrorMessageController {
         isProd = Arrays.stream(environment.getActiveProfiles()).anyMatch(Predicate.isEqual("prod"));
     }
 
-    @RequestMapping(value = "/401", method = RequestMethod.GET)
+    @RequestMapping(value = "/401")
     public String error401(Model model) {
         return PATH + "401";
     }
 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    @RequestMapping(value = "/403")
     public String error403(Model model) {
         return PATH + "403";
     }
 
-    @RequestMapping(value = "/404", method = RequestMethod.GET)
+    @RequestMapping(value = "/404")
     public String error404(Model model) {
         return PATH + "404";
     }
 
-    @RequestMapping(value = "/410", method = RequestMethod.GET)
+    @RequestMapping(value = "/410")
     public String error410(Model model) {
         return PATH + "410";
     }
 
-    @RequestMapping(value = "/500", method = RequestMethod.GET)
+    @RequestMapping(value = "/500")
     public String error500(Model model) {
         model.addAttribute("showError", !isProd);
         return PATH + "500";
     }
 
-    @RequestMapping(value = "/503", method = RequestMethod.GET)
+    @RequestMapping(value = "/503")
     public String error503(Model model) {
         return PATH + "503";
     }
