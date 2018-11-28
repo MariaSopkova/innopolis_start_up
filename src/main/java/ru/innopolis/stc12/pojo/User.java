@@ -1,26 +1,45 @@
 package ru.innopolis.stc12.pojo;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Class models for {@link User}
  */
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "family_name")
     private String familyName;
+    @Column(name = "age")//потом удалить @Column для тех полей, названия которых совпадают с именами в таблице
     private int age;
+    @Column(name = "is_enabled")
     private boolean isEnabled;
+    @Column(name = "gender")
     private String gender;
+    @Column(name = "role")
     private String role;
+    @Column(name = "language")
     private String language;
+    @Column(name = "password")
     private String password;
+    @Column(name = "login")
     private String login;
+    @Column(name = "city")
     private String city;
+    @Column(name = "pet_id")
     private int petId;
+    @Column(name = "ava_link")
     private String avaLink;
+    @Column(name = "email")
     private String email;
+    @Column(name = "phone")
     private String phone;
 
     public User(String name,

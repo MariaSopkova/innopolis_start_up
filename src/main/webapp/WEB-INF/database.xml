@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="ru.innopolis.stc12.dao"/>
+    <context:component-scan base-package="ru.innopolis.stc12.service"/>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url"
+                  value="jdbc:postgresql://ec2-54-83-49-109.compute-1.amazonaws.com:5432/d4tlrjb6ekan6h?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory"/>
+        <property name="username" value="xrsukaldefsdji"/>
+        <property name="password" value="fa28510ca6c8b05249420937033f83eb4bbad7dcc01e428837e08094d7d739d2"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="ru.innopolis.stc12.pojo"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">update
+                </prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL95Dialect
+                </prop>
+                <prop key="hibernate.show_sql">true
+                </prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
