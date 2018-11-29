@@ -2,41 +2,67 @@ package ru.innopolis.stc12.security.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.pojo.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Repository
 public class AuthUserDaoImplHibernate implements AuthUserDao {
 
     private SessionFactory sessionFactory;
-    private Session session;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.session = this.sessionFactory.openSession();
     }
 
     @Override
     public User getUserByLogin(String login) {
-        session.beginTransaction();
-        User user = (User) session.get(User.class, login);
+//        String hql = "FROM users WHERE login = "+login;
+//        Session session = sessionFactory.openSession();
+//        session.beginTransaction();
+//        Query query = session.createQuery(hql);
+//        List<User> users = query.list();
+//        session.close();
+//        return users.get(0);
+
+//        Session session = sessionFactory.openSession();
+//        Criteria criteria = session.createCriteria(User.class);
+//        criteria.add(Restrictions.eq("login", login));
+//        List<User> users = criteria.list();
+//        session.close();
+//        return users.get(0);
+
+        Session session = sessionFactory.openSession();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("login"), login));
+        query.select(root);
+        Query<User> q = session.createQuery(query);
+        User user = q.getSingleResult();
         session.close();
         return user;
     }
 
     @Override
     public List<String> getAuthorities(String login) {
-        List<String> list;
+        String hql = "FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = " + login;
         String sql = "SELECT ra.action FROM role_actions ra INNER JOIN users u ON u.role = ra.role WHERE u.login = ?";
-        session.beginTransaction();
-        /*
-         *
-         **/
+        Session session = sessionFactory.openSession();
+//        Query query = session.createQuery(hql);
+//        List<String> authorities = query.list();
+        List<String> authorities = new ArrayList<>();
         session.close();
-        return null;
+        return authorities;
     }
 }

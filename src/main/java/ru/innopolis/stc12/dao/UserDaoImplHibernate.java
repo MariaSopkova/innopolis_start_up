@@ -2,6 +2,7 @@ package ru.innopolis.stc12.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.pojo.User;
@@ -12,20 +13,15 @@ import java.util.List;
 public class UserDaoImplHibernate implements UserDao {
 
     private SessionFactory sessionFactory;
-    private Session session;
 
     @Autowired
     public void setSessionFactory(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
-        this.session = this.sessionFactory.openSession();
     }
 
     @Override
     public User getUserByName(String name) {
-        session.beginTransaction();
-        User user = (User) session.get(User.class, name);
-        session.close();
-        return user;
+        return null;
     }
 
     @Override
@@ -65,7 +61,13 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        return null;
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        String hql = "FROM users WHERE login = " + login;
+        Query query = session.createQuery(hql);
+        List<User> users = query.list();
+        session.close();
+        return users.get(0);
     }
 
     @Override
@@ -78,3 +80,4 @@ public class UserDaoImplHibernate implements UserDao {
         return false;
     }
 }
+
