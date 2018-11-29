@@ -11,15 +11,21 @@
   <title>Dog Social Network</title>
 
   <spring:url value="/resources/vendor/bootstrap/css/bootstrap.min.css" var="bootstrapCss"/>
-  <spring:url value="/resources/css/base.css" var="baseCss"/>
-  <spring:url value="/resources/vendor/jquery/jquery-3.3.1.min.js" var="jqueryJs"/>
+  <spring:url value="/resources/css/creative.css" var="baseCss"/>
+  <spring:url value="/resources/vendor/fontawesome-free/css/all.min.css" var="fontAwesome"/>
+  <spring:url value="/resources/vendor/jquery/jquery.min.js" var="jqueryJs"/>
   <spring:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js" var="bootstrapJs"/>
+  <spring:url value="/resources/js/creative.js" var="creativeJs"/>
 
   <!-- Bootstrap core CSS -->
   <link href="${bootstrapCss}" rel="stylesheet"/>
 
+  <!-- Custom fonts -->
+  <link href="${fontAwesome}" rel="stylesheet" type="text/css">
+
   <!-- Custom styles  -->
   <link href="${baseCss}" rel="stylesheet"/>
+
 </head>
 <body>
 <div class="container">
@@ -28,6 +34,12 @@
 <!-- Bootstrap core JavaScript -->
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
+<!-- Plugin JavaScript -->
+<script src="/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="/resources/vendor/scrollreveal/scrollreveal.min.js"></script>
+<script src="/resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="${creativeJs}"></script>
 
 </body>
 </html>

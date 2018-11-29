@@ -22,6 +22,8 @@
     </authentication-manager>
 
     <http pattern="/login" security="none"/>
+    <http pattern="/index.jsp" security="none"/>
+    <http pattern="/img/**" security="none"/>
     <http pattern="/registration" security="none"/>
     <http pattern="/resources/**" security="none"/>
     <http pattern="/favicon.ico" security="none"/>
