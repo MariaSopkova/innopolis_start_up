@@ -27,21 +27,6 @@ public class AuthUserDaoImplHibernate implements AuthUserDao {
 
     @Override
     public User getUserByLogin(String login) {
-//        String hql = "FROM users WHERE login = "+login;
-//        Session session = sessionFactory.openSession();
-//        session.beginTransaction();
-//        Query query = session.createQuery(hql);
-//        List<User> users = query.list();
-//        session.close();
-//        return users.get(0);
-
-//        Session session = sessionFactory.openSession();
-//        Criteria criteria = session.createCriteria(User.class);
-//        criteria.add(Restrictions.eq("login", login));
-//        List<User> users = criteria.list();
-//        session.close();
-//        return users.get(0);
-
         Session session = sessionFactory.openSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
         CriteriaQuery<User> query = builder.createQuery(User.class);
