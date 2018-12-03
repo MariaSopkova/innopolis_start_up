@@ -36,6 +36,12 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>
+
+            <form action="uploadFile" method="post" enctype="multipart/form-data">
+                <label>Обновить аватар</label>
+                Выберите файл: <input type="file" name="file"><br/>
+                <input type="submit" value="Загрузить">
+            </form>
         </div>
         <div class="col"></div>
     </div>
