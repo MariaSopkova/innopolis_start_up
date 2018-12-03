@@ -6,7 +6,7 @@
         <div class="col-sm-3">
             <div class="user-personal bg-light p-3 rounded">
                 <div class="user-logo mb-3">
-                    <img src=${user.avaLink} border="0">
+                    <img src="${user.avaLink}" class="img-fluid rounded" >
                 </div>
                 <div class="user-personal-data">
                     <h5>${user.name} ${user.familyName}</h5>

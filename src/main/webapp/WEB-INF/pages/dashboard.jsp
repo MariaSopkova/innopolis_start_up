@@ -3,6 +3,7 @@
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <t:base-page>
-  <h3>Дешборд</h3>
-  <p>Здесь пока ничего нет</p>
+  <h3>Главная</h3>
+  <p>Мой профиль</p>
+  <p>и мои питомцы...</p>
 </t:base-page>
