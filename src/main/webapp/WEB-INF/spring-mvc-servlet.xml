@@ -41,7 +41,7 @@
         <property name="maxUploadSize" value="100000"/>
     </bean>
 
-    <mvc:resources mapping="/favicon.ico" location="/resources/default-theme/favicon.ico"/>
+    <mvc:resources mapping="/favicon.ico" location="/resources/default-theme/"/>
     <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>
 
     <mvc:annotation-driven/>
