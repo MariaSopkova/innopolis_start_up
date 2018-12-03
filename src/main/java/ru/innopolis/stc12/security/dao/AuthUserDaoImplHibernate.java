@@ -6,6 +6,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.pojo.User;
+import ru.innopolis.stc12.security.Actions;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -32,7 +33,6 @@ public class AuthUserDaoImplHibernate implements AuthUserDao {
         CriteriaQuery<User> query = builder.createQuery(User.class);
         Root<User> root = query.from(User.class);
         query.select(root).where(builder.equal(root.get("login"), login));
-        query.select(root);
         Query<User> q = session.createQuery(query);
         User user = q.getSingleResult();
         session.close();
@@ -47,6 +47,9 @@ public class AuthUserDaoImplHibernate implements AuthUserDao {
 //        Query query = session.createQuery(hql);
 //        List<String> authorities = query.list();
         List<String> authorities = new ArrayList<>();
+        authorities.add(Actions.USER_DASHBOARD_VIEW);
+        authorities.add(Actions.USER_PROFILE_VIEW);
+        authorities.add(Actions.USER_PROFILE_EDIT);
         session.close();
         return authorities;
     }

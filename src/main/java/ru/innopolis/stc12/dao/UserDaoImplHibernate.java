@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.innopolis.stc12.pojo.User;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
@@ -31,7 +34,10 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User getUserById(int id) {
-        return null;
+        Session session = sessionFactory.openSession();
+        User user = (User) session.get(User.class, id);
+        session.close();
+        return user;
     }
 
     @Override
@@ -62,12 +68,14 @@ public class UserDaoImplHibernate implements UserDao {
     @Override
     public User getUserByLogin(String login) {
         Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        String hql = "FROM users WHERE login = " + login;
-        Query query = session.createQuery(hql);
-        List<User> users = query.list();
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get("login"), login));
+        Query<User> q = session.createQuery(query);
+        User user = q.getSingleResult();
         session.close();
-        return users.get(0);
+        return user;
     }
 
     @Override
