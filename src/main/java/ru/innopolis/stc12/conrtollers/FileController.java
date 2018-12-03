@@ -48,7 +48,7 @@ public class FileController {
 
                 logger.info("uploaded: " + uploadedFile.getAbsolutePath());
 
-                return name + "Успешно загружен";
+                return name + "Successfully loaded";
 
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
