@@ -38,8 +38,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean createUser(User user) {
-        jdbcTemplate.update("INSERT INTO users (name, family_name, age, is_enabled, gender, role, language, login, password, email, phone, city, pet_id) " +
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO users (name, family_name, age, is_enabled, gender, role, language, login, password, email, phone, city, pet_id, ava_link, is_deleted) " +
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                 user.getName(),
                 user.getFamilyName(),
                 user.getAge(),
@@ -52,7 +52,9 @@ public class UserDaoImpl implements UserDao {
                 user.getEmail(),
                 user.getPhone(),
                 user.getCity(),
-                user.getPetId());
+                user.getPetId(),
+                user.getAvaLink(),
+                user.isDeleted());
         return true;
     }
 
@@ -63,9 +65,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        try{
+        try {
             return jdbcTemplate.queryForObject("SELECT * FROM users WHERE login = ?", new Object[]{login}, new UserMapper());
-        } catch( EmptyResultDataAccessException ex ) {
+        } catch (EmptyResultDataAccessException ex) {
             // данная ошибка возникает, когда не найдены записи по параметру
             return null;
         }
@@ -73,9 +75,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByEmail(String login) {
-        try{
+        try {
             return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email = ?", new Object[]{login}, new UserMapper());
-        } catch( EmptyResultDataAccessException ex ) {
+        } catch (EmptyResultDataAccessException ex) {
             // данная ошибка возникает, когда не найдены записи по параметру
             return null;
         }
@@ -98,8 +100,24 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public boolean updateUser(User user) {
-        String sql = "UPDATE users SET name = ?, family_name = ? , age = ?, is_enabled = ?, gender = ?, role = ?, language = ?, password = ?, login = ?, city = ?, pet_id = ? WHERE user_id = ? ";
-        Object[] obj = new Object[]{user.getName(), user.getFamilyName(), user.getAge(), user.isEnabled(), user.getGender(), user.getRole(), user.getLanguage(), user.getPassword(), user.getLogin(), user.getCity(), user.getPetId(), user.getId()};
+        String sql = "UPDATE users SET name = ?, family_name = ? , age = ?, is_enabled = ?, gender = ?, role = ?, language = ?, password = ?, login = ?, email = ?, phone = ?, city = ?, pet_id = ?, ava_link = ?, is_deleted = ? WHERE user_id = ? ";
+        Object[] obj = new Object[]{
+                user.getName(),
+                user.getFamilyName(),
+                user.getAge(),
+                user.isEnabled(),
+                user.getGender(),
+                user.getRole(),
+                user.getLanguage(),
+                user.getPassword(),
+                user.getLogin(),
+                user.getEmail(),
+                user.getPhone(),
+                user.getCity(),
+                user.getPetId(),
+                user.getAvaLink(),
+                user.isDeleted(),
+                user.getId()};
         return jdbcTemplate.update(sql, obj) == 1;
     }
 

@@ -12,6 +12,7 @@ public class User implements Serializable {
     private String familyName;
     private int age;
     private boolean isEnabled;
+    private boolean isDeleted;
     private String gender;
     private String role;
     private String language;
@@ -35,7 +36,9 @@ public class User implements Serializable {
                 String email,
                 String phone,
                 String city,
-                int petId, String avaLink) {
+                int petId,
+                String avaLink,
+                boolean isDeleted) {
 
         this.name = name;
         this.familyName = familyName;
@@ -51,6 +54,7 @@ public class User implements Serializable {
         this.city = city;
         this.petId = petId;
         this.avaLink = avaLink;
+        this.isDeleted = isDeleted;
     }
 
     public User() {
@@ -93,7 +97,15 @@ public class User implements Serializable {
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.isEnabled = enabled;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
     }
 
     public String getGender() {
@@ -177,6 +189,7 @@ public class User implements Serializable {
                 ", familyName='" + familyName + '\'' +
                 ", age=" + age +
                 ", isEnabled=" + isEnabled +
+                ", isDeleted=" + isDeleted +
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", language='" + language + '\'' +

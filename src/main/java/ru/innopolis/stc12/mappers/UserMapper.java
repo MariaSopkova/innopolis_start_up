@@ -21,11 +21,12 @@ public class UserMapper implements RowMapper<User> {
         user.setLanguage(rs.getString("language"));
         user.setPassword(rs.getString("password"));
         user.setLogin(rs.getString("login"));
+        user.setEmail(rs.getString("email"));
+        user.setPhone(rs.getString("phone"));
         user.setCity(rs.getString("city"));
         user.setPetId(rs.getInt("pet_id"));
         user.setAvaLink(rs.getString("ava_link"));
-        user.setEmail(rs.getString("email"));
-        user.setPhone(rs.getString("phone"));
+        user.setDeleted(rs.getBoolean("is_deleted"));
         return user;
     }
 }

@@ -28,7 +28,8 @@ public interface UserService {
                  String phone,
                  String city,
                  int petId,
-                 String avaLink);
+                 String avaLink,
+                 boolean isDeleted);
 
     boolean deleteUserById(int id);
 
