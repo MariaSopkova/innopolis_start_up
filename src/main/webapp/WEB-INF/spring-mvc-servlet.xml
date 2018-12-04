@@ -41,6 +41,7 @@
     </bean>
     <mvc:resources mapping="/favicon.ico" location="/resources/default-theme/favicon.ico"/>
     <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>
+    <mvc:resources mapping="/img/**" location="/resources/default-theme/img/" cache-period="31556926"/>
 
     <mvc:annotation-driven/>
 </beans>

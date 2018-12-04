@@ -5,7 +5,7 @@
         <div class="col-sm-3">
             <div class="user-personal bg-light p-3 rounded">
                 <div class="user-logo mb-3">
-                    <img src="C:/dev/apache-tomcat-8.5.35/bin/userPhoto/001-500x500.jpg" width="120" border="0">
+                    <img src="${user.avaLink}" class="img-fluid rounded" >
                 </div>
                 <div class="user-personal-data">
                     <h5>${user.name} ${user.familyName}</h5>
