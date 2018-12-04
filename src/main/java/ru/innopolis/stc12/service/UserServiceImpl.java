@@ -1,22 +1,20 @@
 package ru.innopolis.stc12.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.pojo.User;
-import ru.innopolis.stc12.security.Actions;
-import ru.innopolis.stc12.security.SecurityUtils;
 
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
+
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 

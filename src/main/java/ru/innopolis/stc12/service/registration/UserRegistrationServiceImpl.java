@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.dto.RegistrationPageDTO;
 import ru.innopolis.stc12.pojo.User;
-import ru.innopolis.stc12.security.model.Role;
+import ru.innopolis.stc12.security.model.Roles;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -87,7 +87,7 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
     private User convertUserDtpToUserPojo(RegistrationPageDTO pageDTO) {
         User user = new User();
-        user.setRole(Role.ROLE_USER);
+        user.setRole(Roles.ROLE_USER);
         user.setLanguage("ru");
         user.setName(pageDTO.getFirstName());
         user.setFamilyName(pageDTO.getSurname());

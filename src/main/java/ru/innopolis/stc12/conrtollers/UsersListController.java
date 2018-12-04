@@ -27,20 +27,19 @@ public class UsersListController {
         return "userslist";
 
     }
+
     @RequestMapping(value = "/avaibleuser/{id}", method = RequestMethod.GET)
     public String editUser(@PathVariable("id") int id, Model model) {
         User user = userService.getUserById(id);
         user.setEnabled(!user.isEnabled());
         userService.updateUser(user);
-        model.addAttribute("users", userService.getUsersList());
-        return "userslist";
+        return showUsersListPage(model);
     }
 
     @RequestMapping(value = "/removeuser/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") int id, Model model) {
         userService.deleteUserById(id);
-        model.addAttribute("users", userService.getUsersList());
-        return "userslist";
+        return showUsersListPage(model);
     }
 
 }

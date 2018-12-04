@@ -12,6 +12,10 @@
     <context:annotation-config/>
     <context:component-scan base-package="ru.innopolis"/>
 
+    <mvc:resources mapping="/favicon.ico" location="/resources/default-theme/favicon.ico"/>
+    <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>
+
+    <mvc:annotation-driven/>
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"/>
@@ -25,8 +29,6 @@
         </property>
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
-    <mvc:resources mapping="/favicon.ico" location="/resources/default-theme/favicon.ico"/>
-    <mvc:resources mapping="/resources/**" location="/resources/default-theme/" cache-period="31556926"/>
 
-    <mvc:annotation-driven/>
+
 </beans>
