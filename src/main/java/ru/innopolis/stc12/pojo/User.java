@@ -113,6 +113,7 @@ public class User implements Serializable {
         this.isEnabled = enabled;
     }
 
+    @Column(name = "is_deleted")
     public boolean isDeleted() {
         return isDeleted;
     }
