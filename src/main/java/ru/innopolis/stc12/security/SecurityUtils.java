@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.innopolis.stc12.security.model.Role;
+import ru.innopolis.stc12.security.model.Roles;
 import ru.innopolis.stc12.security.model.WebUserDetails;
 
 import java.util.Collection;
@@ -13,19 +13,19 @@ import java.util.Collection;
 public final class SecurityUtils {
 
   public static boolean isGuest() {
-    return Role.ROLE_GUEST.equals(getAuthenticatedRole());
+    return Roles.ROLE_GUEST.equals(getAuthenticatedRole());
   }
 
   public static boolean isModerator() {
-    return Role.ROLE_MODERATOR.equals(getAuthenticatedRole());
+    return Roles.ROLE_MODERATOR.equals(getAuthenticatedRole());
   }
 
   public static boolean isUser() {
-    return Role.ROLE_USER.equals(getAuthenticatedRole());
+    return Roles.ROLE_USER.equals(getAuthenticatedRole());
   }
 
   public static boolean isSuperuser() {
-    return Role.ROLE_SUPERUSER.equals(getAuthenticatedRole());
+    return Roles.ROLE_SUPERUSER.equals(getAuthenticatedRole());
   }
 
   public static boolean hasAuthorizeFor(String... actions) {

@@ -2,9 +2,15 @@ package ru.innopolis.stc12.security;
 
 /**
  * В этом месте перечислены все действия всех ролей в системе
- * Интерфейс не нужно реализовать, создан для удобства хранения статических переменных
  */
-public interface Actions {
-  String USER_DASHBOARD_VIEW = "USER_DASHBOARD_VIEW";
-  String USER_PROFILE_VIEW = "USER_PROFILE_VIEW";
+public class Actions {
+    private Actions() {
+    }
+
+    public static final String USER_DASHBOARD_VIEW = "USER_DASHBOARD_VIEW";
+    public static final String USER_PROFILE_VIEW = "USER_PROFILE_VIEW";
+    public static final String USER_PROFILE_EDIT = "USER_PROFILE_EDIT";
+    public static final String USER_LIST_VIEW = "USER_LIST_VIEW";
+    public static final String USER_PET_EDIT = "USER_PET_EDIT";
+    public static final String USER_PET_VIEW = "USER_PET_VIEW";
 }

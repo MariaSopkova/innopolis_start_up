@@ -1,13 +1,11 @@
 package ru.innopolis.stc12.dao;
 
-import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.innopolis.stc12.conrtollers.FileController;
 import ru.innopolis.stc12.pojo.User;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,8 +14,9 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 @Repository
+@Transactional
 public class UserDaoImplHibernate implements UserDao {
-    private static final Logger logger = Logger.getLogger(FileController.class);
+
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -27,44 +26,46 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "name", name);
     }
 
     @Override
     public User getUserByFamilyname(String familyName) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "family_name", familyName);
     }
 
     @Override
-    @Transactional
     public User getUserById(int id) {
-        Session session = sessionFactory.openSession();
-        User user = session.get(User.class, id);
-        return user;
-    }
-
-    @Override
-    public boolean createUser(User user) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(User.class, id);
     }
 
     @Override
     public boolean deleteUserById(int id) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(new User().setId(id));
+        return true;
     }
 
     @Override
     public boolean deleteUserByName(String name) {
-        return false;
+        User user = getUserByName(name);
+        if (user == null || user.getId() == 0) {
+            return false;
+        }
+        return deleteUserById(user.getId());
     }
 
     @Override
-    public boolean addUser(User user) {
-        return false;
+    public boolean createUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+        return true;
     }
 
     @Override
-    @Transactional
     public List<User> getUsersList() {
         Session session = sessionFactory.getCurrentSession();
         CriteriaBuilder builder = session.getCriteriaBuilder();
@@ -76,36 +77,33 @@ public class UserDaoImplHibernate implements UserDao {
     }
 
     @Override
-    @Transactional
     public User getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> root = query.from(User.class);
-        query.select(root).where(builder.equal(root.get("login"), login));
-        Query<User> q = session.createQuery(query);
-        return q.getSingleResult();
+        return getUserByCriteria(session, "login", login);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "email", email);
     }
 
     @Override
-    @Transactional
     public boolean updateUser(User user) {
         Session session = sessionFactory.getCurrentSession();
-        try{
+        if (user.getId() > 0) {
             session.update(user);
-        }catch (Exception e){
-            logger.info(e);
-            return false;
         }
-        finally {
-            logger.info("finally close session");
-            return true;
-        }
+        return true;
+    }
+
+    private User getUserByCriteria(Session session, String criteria, String value) {
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get(criteria), value));
+        Query<User> q = session.createQuery(query);
+        return q.getSingleResult();
     }
 }
 

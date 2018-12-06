@@ -7,7 +7,7 @@
     <div class="col col-sm-3">
       <div class="user-personal sticky-top">
         <div class="user-logo my-3">
-          <iframe src="${user.avaLink}" class="img-fluid rounded"></iframe>
+          <img src="${user.avaLink}" class="img-fluid rounded w-100" >
         </div>
         <div class="user-personal-data">
           <h5>${user.name} ${user.familyName}</h5>
