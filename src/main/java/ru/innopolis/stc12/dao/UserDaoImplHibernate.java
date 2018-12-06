@@ -26,40 +26,43 @@ public class UserDaoImplHibernate implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "name", name);
     }
 
     @Override
     public User getUserByFamilyname(String familyName) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "family_name", familyName);
     }
 
     @Override
     public User getUserById(int id) {
-        Session session = sessionFactory.openSession();
-        User user = session.get(User.class, id);
-        session.close();
-        return user;
-    }
-
-    @Override
-    public boolean createUser(User user) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        return session.get(User.class, id);
     }
 
     @Override
     public boolean deleteUserById(int id) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        session.delete(new User().setId(id));
+        return true;
     }
 
     @Override
     public boolean deleteUserByName(String name) {
-        return false;
+        User user = getUserByName(name);
+        if (user == null || user.getId() == 0) {
+            return false;
+        }
+        return deleteUserById(user.getId());
     }
 
     @Override
-    public boolean addUser(User user) {
-        return false;
+    public boolean createUser(User user) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(user);
+        return true;
     }
 
     @Override
@@ -74,25 +77,33 @@ public class UserDaoImplHibernate implements UserDao {
     }
 
     @Override
-    @Transactional
     public User getUserByLogin(String login) {
         Session session = sessionFactory.getCurrentSession();
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<User> query = builder.createQuery(User.class);
-        Root<User> root = query.from(User.class);
-        query.select(root).where(builder.equal(root.get("login"), login));
-        Query<User> q = session.createQuery(query);
-        return q.getSingleResult();
+        return getUserByCriteria(session, "login", login);
     }
 
     @Override
     public User getUserByEmail(String email) {
-        return null;
+        Session session = sessionFactory.getCurrentSession();
+        return getUserByCriteria(session, "email", email);
     }
 
     @Override
     public boolean updateUser(User user) {
-        return false;
+        Session session = sessionFactory.getCurrentSession();
+        if (user.getId() > 0) {
+            session.update(user);
+        }
+        return true;
+    }
+
+    private User getUserByCriteria(Session session, String criteria, String value) {
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<User> query = builder.createQuery(User.class);
+        Root<User> root = query.from(User.class);
+        query.select(root).where(builder.equal(root.get(criteria), value));
+        Query<User> q = session.createQuery(query);
+        return q.getSingleResult();
     }
 }
 

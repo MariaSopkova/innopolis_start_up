@@ -29,6 +29,7 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private List<RoleAction> roleActions = new ArrayList<>();
+    private List<Pet> pets = new ArrayList<>();
 
     public User(String name,
                 String familyName,
@@ -73,8 +74,9 @@ public class User implements Serializable {
         return id;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
     @Column(name = "name")
@@ -95,7 +97,7 @@ public class User implements Serializable {
         this.familyName = familyName;
     }
 
-    @Column(name = "age")//потом удалить @Column для тех полей, названия которых совпадают с именами в таблице
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
@@ -223,6 +225,15 @@ public class User implements Serializable {
 
     public void setRoleActions(List<RoleAction> roleActions) {
         this.roleActions = roleActions;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 
     @Override

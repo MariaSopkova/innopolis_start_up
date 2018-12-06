@@ -1,6 +1,7 @@
 package ru.innopolis.stc12.dao;
 
 import org.springframework.security.access.annotation.Secured;
+import ru.innopolis.stc12.pojo.Pet;
 import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
 
@@ -13,13 +14,11 @@ public interface UserDao {
 
     User getUserById(int id);
 
-    boolean createUser(User user);
-
     boolean deleteUserById(int id);
 
     boolean deleteUserByName(String name);
 
-    boolean addUser(User user);
+    boolean createUser(User user);
 
     @Secured(Actions.USER_LIST_VIEW)
     List<User> getUsersList();

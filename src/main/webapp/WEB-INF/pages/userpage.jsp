@@ -1,64 +1,75 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <t:base-page>
     <div class="row">
         <div class="col-sm-3">
             <div class="user-personal bg-light p-3 rounded">
                 <div class="user-logo mb-3">
-                    <img src="${user.avaLink}" class="img-fluid rounded" >
+                    <img src="${user.avaLink}" class="img-fluid rounded w-100">
                 </div>
                 <div class="user-personal-data">
                     <h5>${user.name} ${user.familyName}</h5>
-                    <div>Возраст ${user.age}</div>
-                    <div class="personal-data--item">
-                        <div class="font-weight-bold">город ${user.city}</div>
-                        <a href="useredit/${user.id}">Редактировать</a>
 
-                        <form action="updateAvatar/${user.id}" method="post" enctype="multipart/form-data">
-                            <label>Обновить аватар</label>
-                            Выберите файл: <input type="file" name="file"><br/>
-                            <input type="submit" value="Загрузить">
-                        </form>
+                    <div class="personal-data--item">
+                        <div class="font-weight-bold">Город</div>
+                        <div>${user.city}</div>
+                    </div>
+                    <div class="personal-data--item">
+                        <div class="font-weight-bold">Возраст</div>
+                        <div>${user.age}</div>
+                    </div>
+                    <div class="py-3">
+                        <a class="btn btn-sm btn-primary" href="useredit/${user.id}">Редактировать</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-9">
-            <h4>Мои питомцы</h4>
-            <div class="card-deck">
-                <div class="card">
-                    <img class="card-img-top" src="img/header2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer bg-white text-sm-center size">
-                        <a class="btn btn-link btn-sm text-info"><i class="fa fa-pen"></i> Редактировать</a>
-                        <a class="btn btn-link btn-sm text-danger"><i class="fa fa-times"></i> Удалить</a>
-                    </div>
+            <div class="text-success">${result}</div>
+            <div class="text-error">${error}</div>
+            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_VIEW)">
+                <h4>Мои питомцы</h4>
+                <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_EDIT)">
+                    <div class="btn-panel"><a href="/pet/${user.id}/0" class="btn btn-primary"><i
+                            class="fa fa-plus mr-2"></i>Добавить питомца</a></div>
+                </sec:authorize>
+                <div class="row">
+                    <c:forEach var="pet" items="${user.pets}">
+                        <div class="col col-sm-4">
+                            <div class="card">
+                                <img class="card-img-top" src="img/header2.jpg" alt="Мой питомец">
+                                <div class="card-body p-0">
+                                    <h5 class="card-title pt-3 px-3">${pet.name}</h5>
+                                    <p class="card-text description px-3">${pet.description}</p>
+                                </div>
+                                <sec:authorize
+                                        access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_EDIT)">
+                                    <div class="card-footer bg-white text-sm-center size">
+                                        <a class="btn btn-link btn-sm text-info" href="/pet/${user.id}/${pet.id}"><i
+                                                class="fa fa-pen"></i> Редактировать</a>
+                                        <a class="btn btn-link btn-sm text-danger" href="#"
+                                           onclick="removePet(${pet.id})"><i
+                                                class="fa fa-times"></i> Удалить</a>
+                                    </div>
+                                </sec:authorize>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
-                <div class="card">
-                    <img class="card-img-top" src="img/header.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-                <div class="card">
-                    <img class="card-img-top" src="img/header2.jpg" alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
-                </div>
-            </div>
+            </sec:authorize>
         </div>
     </div>
+    <script>
+        function removePet(petId) {
+            $.ajax({
+                url: '/pet/remove/' + petId,
+                method: 'DELETE'
+            }).done(function (data) {
+                console.log(data);
+            });
+        }
+    </script>
 </t:base-page>
 

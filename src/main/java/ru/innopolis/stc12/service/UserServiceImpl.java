@@ -2,6 +2,7 @@ package ru.innopolis.stc12.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.pojo.User;
 
@@ -13,7 +14,6 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
-
 
     @Autowired
     public UserServiceImpl(UserDao userDao) {
@@ -28,11 +28,13 @@ public class UserServiceImpl implements UserService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public User getUserByLogin(String login) {
         return userDao.getUserByLogin(login);
     }
 
+    @Transactional
     @Override
     public User getUserById(int id) {
         return userDao.getUserById(id);
@@ -73,10 +75,11 @@ public class UserServiceImpl implements UserService {
                 avaLink,
                 isDeleted);
 
-        userDao.addUser(newUser);
+        userDao.createUser(newUser);
     }
 
     @Override
+    @Transactional
     public boolean deleteUserById(int id) {
         User user = getUserById(id);
         user.setDeleted(!user.isDeleted());
@@ -87,4 +90,5 @@ public class UserServiceImpl implements UserService {
     public boolean updateUser(User user) {
         return userDao.updateUser(user);
     }
+
 }

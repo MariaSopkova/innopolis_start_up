@@ -64,7 +64,7 @@ public class FileController {
                 logger.info("User update");
                 model.addAttribute("user", userService.getUserById(id));
 
-                return "redirect:/userpage";
+                return "redirect:/useredit/" + id;
 
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();

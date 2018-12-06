@@ -12,3 +12,13 @@ pre {
 #mainNav.bg-navbar {
     background-color: #403b42;
 }
+.btn-panel {
+    margin-bottom: 20px ;
+}
+.description {
+    height: 12em;
+    overflow-y: auto;
+}
+.personal-data--item{
+    margin-top: 10px;
+}
