@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="user-personal bg-light p-3 rounded">
-                <div class="user-logo mb-3">
-                    <img src="${user.avaLink}" class="img-fluid rounded w-100">
+                <div>
+                    <iframe src="${user.avaLink}" class="img-fluid rounded"></iframe>
                 </div>
                 <div class="user-personal-data">
                     <h5>${user.name} ${user.familyName}</h5>

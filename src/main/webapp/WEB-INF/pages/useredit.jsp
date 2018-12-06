@@ -17,7 +17,9 @@
     <h2>Редактирование профиля ${user.login}</h2>
     <div class="row">
         <div class="col-12 col-sm-6">
-            <img src="${user.avaLink}" class="img-fluid rounded">
+            <div>
+                <iframe src="${user.avaLink}" class="img-fluid rounded"></iframe>
+            </div>
             <form action="updateAvatar/${user.id}" method="post" enctype="multipart/form-data">
                 <div class="input-group mt-2">
                     <div class="custom-file">

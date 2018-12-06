@@ -14,9 +14,7 @@ import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.service.UserService;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
+import static ru.innopolis.stc12.dto.CreateGoogleFile.createGoogleFile;
 
 @Controller
 public class FileController {
@@ -30,7 +28,7 @@ public class FileController {
     }
 
     @Secured({Actions.USER_PROFILE_EDIT, Actions.USER_PROFILE_VIEW})
-    @RequestMapping(value = "/updateAvatar/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "useredit/updateAvatar/{id}", method = RequestMethod.POST)
     public String uploadFile(@PathVariable("id") int id, @RequestParam("file") MultipartFile file, Model model) {// имена параметров - как на форме jsp
 
         String name = null;
@@ -41,35 +39,20 @@ public class FileController {
 
                 name = file.getOriginalFilename();
 
-//                String rootPath = System.getProperty("/temp");
-                String rootPath = new File("").getAbsolutePath();
-                File dir = new File(rootPath + File.separator + "userPhoto");
-
-                if (!dir.exists()) {
-                    dir.mkdirs();
-                }
-
-                File uploadedFile = new File(dir.getAbsolutePath() + File.separator + name);
-
-                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(uploadedFile));
-                stream.write(bytes);
-                stream.flush();
-                stream.close();
-
-                logger.info("uploaded: " + uploadedFile.getAbsolutePath());
-
+                com.google.api.services.drive.model.File googleFile = createGoogleFile(null, "image/jpeg", name, bytes);
                 User user = userService.getUserById(id);
-                user.setAvaLink(dir.getAbsolutePath() + File.separator + name);
+                user.setAvaLink(googleFile.getWebViewLink().replace("view?usp=drivesdk", "preview"));
                 userService.updateUser(user);
-                logger.info("User update");
+                logger.info("User " + user.getName() + " " + user.getFamilyName() + " change avatar");
                 model.addAttribute("user", userService.getUserById(id));
-
                 return "redirect:/useredit/" + id;
 
             } catch (Exception e) {
+                logger.info(e);
                 return "You failed to upload " + name + " => " + e.getMessage();
             }
         } else {
+            logger.info("file is empty");
             return "You failed to upload " + name + " because the file was empty.";
         }
     }

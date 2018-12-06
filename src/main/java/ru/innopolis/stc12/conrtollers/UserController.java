@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -8,16 +9,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.innopolis.stc12.pojo.Pet;
 import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.security.SecurityUtils;
 import ru.innopolis.stc12.service.UserService;
 
-import java.util.Date;
-
 @Controller
 public class UserController {
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private UserService userService;
 
     @Autowired
