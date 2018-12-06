@@ -13,7 +13,6 @@ import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.service.UserService;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,17 +38,14 @@ public class UsersListController {
         User user = userService.getUserById(id);
         user.setEnabled(!user.isEnabled());
         userService.updateUser(user);
-        model.addAttribute("users", userService.getUsersList());
-        return "userslist";
+        return showUsersListPage(model);
     }
 
     @RequestMapping(value = "/removeuser/{id}", method = RequestMethod.GET)
     public String deleteUser(@PathVariable("id") int id, Model model) {
-        User user = userService.getUserById(id);
-        user.setDeleted(!user.isDeleted());
-        userService.updateUser(user);
+        userService.deleteUserById(id);
         model.addAttribute("users", userService.getUsersList());
-        return "userslist";
+        return showUsersListPage(model);
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET)

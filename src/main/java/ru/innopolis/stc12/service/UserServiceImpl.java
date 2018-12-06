@@ -12,10 +12,11 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDao userDao;
+    private final UserDao userDao;
+
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -77,7 +78,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean deleteUserById(int id) {
-        return userDao.deleteUserById(id);
+        User user = getUserById(id);
+        user.setDeleted(!user.isDeleted());
+        return updateUser(user);
     }
 
     @Override
