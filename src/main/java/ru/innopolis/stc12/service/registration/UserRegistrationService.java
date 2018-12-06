@@ -5,7 +5,8 @@ import ru.innopolis.stc12.dto.RegistrationPageDTO;
 public interface UserRegistrationService {
     boolean addUser(RegistrationPageDTO pageDTO);
 
-    RegistrationPageDTO createRegistrationPageInfoData(String firstName, String surname, String login, String email, String password, String passwordDouble);
+    RegistrationPageDTO createRegistrationPageInfoData(String firstName, String surname, String login,
+                                                       String email, String password, String passwordDouble);
 
     boolean isFirstNameEmpty(RegistrationPageDTO registrationInfo);
 

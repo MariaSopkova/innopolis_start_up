@@ -38,7 +38,8 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         return userDao.createUser(user);
     }
 
-    public RegistrationPageDTO createRegistrationPageInfoData(String firstName, String surname, String login, String email, String password, String passwordDouble) {
+    public RegistrationPageDTO createRegistrationPageInfoData(String firstName, String surname, String login,
+                                                              String email, String password, String passwordDouble) {
         return new RegistrationPageDTO(firstName, surname, login, email, password, passwordDouble);
     }
 

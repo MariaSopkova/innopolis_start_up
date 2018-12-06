@@ -13,7 +13,9 @@ public class LoginController {
     public String showLoginForm(
             @RequestParam(value = "error", required = false) String error,
             Model model) {
-        model.addAttribute("loginError", error);
+        if (error != null && !error.isEmpty()) {
+            model.addAttribute("loginError", "Неверный логин или пароль");
+        }
         return "login";
     }
 

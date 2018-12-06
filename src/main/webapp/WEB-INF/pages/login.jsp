@@ -4,7 +4,10 @@
 <t:base>
 
   <div class="shadow p-3 mt-5 mb-5 bg-white rounded mx-auto" style="width: 300px;">
-    <h4 class="text-center mb-4"><spring:message code="loginPage.auth"/></h4>
+    <h4 class="text-center mb-4 mt-1"><spring:message code="loginPage.auth"/></h4>
+          <div class="text-center">
+              <label class="text-danger">${loginError}</label>
+          </div>
     <form id="login-form" action="/j_username_security_check" method="post" role="form"
           style="display: block;">
       <div class="form-group">
