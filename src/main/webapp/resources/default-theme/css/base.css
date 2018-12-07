@@ -33,3 +33,11 @@ pre {
 .card.accent .author a {
     color:#fff;
 }
+
+.no-ava {
+    text-align: center;
+}
+.no-ava i {
+    color: #fff;
+    font-size:5rem;
+}

@@ -5,7 +5,15 @@
 
 <div class="user-personal bg-light p-3 rounded">
     <div class="user-logo mb-3">
-        <img src="${user.avaLink}" class="img-fluid rounded w-100">
+        ${user.avaLink}
+        <c:if test="${not empty user.avaLink}">
+            <img src="${user.avaLink}" class="img-fluid rounded w-100">
+        </c:if>
+        <c:if test="${empty user.avaLink}">
+            <div class="no-ava bg-dark p-5">
+                <i class="far fas-user"></i>
+            </div>
+        </c:if>
     </div>
     <div class="user-personal-data">
         <h5>${user.name} ${user.familyName}</h5>

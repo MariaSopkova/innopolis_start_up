@@ -206,6 +206,9 @@ public class User implements Serializable {
 
     @Column(name = "ava_link")
     public String getAvaLink() {
+        if (avaLink == null) {
+            return "";
+        }
         return avaLink;
     }
 

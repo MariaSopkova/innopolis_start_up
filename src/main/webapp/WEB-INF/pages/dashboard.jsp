@@ -5,21 +5,8 @@
 <t:base-page>
   <div class="row">
     <div class="col col-sm-3">
-      <div class="user-personal sticky-top">
-        <div class="user-logo my-3">
-          <img src="${user.avaLink}" class="img-fluid rounded w-100" >
-        </div>
-        <div class="user-personal-data">
-          <h5>${user.name} ${user.familyName}</h5>
-          <div class="personal-data--item">
-            <div class="font-weight-bold">Город</div>
-            <div>${user.city}</div>
-          </div>
-          <div class="personal-data--item">
-            <div class="font-weight-bold">Возраст</div>
-            <div>${user.age}</div>
-          </div>
-        </div>
+      <div class="sticky-top">
+        <t:user-card editable="false" user="${user}"/>
       </div>
     </div>
     <div class="col col-sm-9">
