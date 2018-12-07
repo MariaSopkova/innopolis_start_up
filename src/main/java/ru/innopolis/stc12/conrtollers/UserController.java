@@ -32,6 +32,14 @@ public class UserController {
         return "userpage";
     }
 
+    @Secured(Actions.USER_PROFILE_VIEW)
+    @RequestMapping(value = "/userpage/{id}", method = RequestMethod.GET)
+    public String showUserPage(@PathVariable("id") int id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "userview";
+    }
+
     /*
      * Обработка при перезходе на страницу редактирования
      * */

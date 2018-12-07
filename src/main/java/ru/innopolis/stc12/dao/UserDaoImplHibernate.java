@@ -104,7 +104,11 @@ public class UserDaoImplHibernate implements UserDao {
         Root<User> root = query.from(User.class);
         query.select(root).where(builder.equal(root.get(criteria), value));
         Query<User> q = session.createQuery(query);
-        return q.getSingleResult();
+        List<User> resultList = q.getResultList();
+        if (resultList.isEmpty()) {
+            return null;
+        }
+        return resultList.get(0);
     }
 }
 

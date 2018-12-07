@@ -4,73 +4,60 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c1" uri="http://cloudinary.com/jsp/taglib" %>
 <t:base-page>
+
+    <c:set var="active" value="${(empty param.active) ? 'pets' : param.active}" />
+
     <div class="row">
         <div class="col-sm-3">
-            <div class="user-personal bg-light p-3 rounded">
-                <div>
-                    <img src="${user.avaLink}" class="img-fluid rounded">
-                </div>
-                <div class="user-personal-data">
-                    <h5>${user.name} ${user.familyName}</h5>
-
-                    <div class="personal-data--item">
-                        <div class="font-weight-bold">Город</div>
-                        <div>${user.city}</div>
-                    </div>
-                    <div class="personal-data--item">
-                        <div class="font-weight-bold">Возраст</div>
-                        <div>${user.age}</div>
-                    </div>
-                    <div class="py-3">
-                        <a class="btn btn-sm btn-primary" href="useredit/${user.id}">Редактировать</a>
-                    </div>
-                </div>
-            </div>
+            <t:user-card editable="true" user="${user}"/>
         </div>
         <div class="col-sm-9">
             <div class="text-success">${result}</div>
             <div class="text-error">${error}</div>
-            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_VIEW)">
-                <h4>Мои питомцы</h4>
-                <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_EDIT)">
-                    <div class="btn-panel"><a href="/pet/${user.id}/0" class="btn btn-primary"><i
-                            class="fa fa-plus mr-2"></i>Добавить питомца</a></div>
-                </sec:authorize>
-                <div class="row">
-                    <c:forEach var="pet" items="${user.pets}">
-                        <div class="col col-sm-4">
-                            <div class="card">
-                                <img class="card-img-top" src="img/header2.jpg" alt="Мой питомец">
-                                <div class="card-body p-0">
-                                    <h5 class="card-title pt-3 px-3">${pet.name}</h5>
-                                    <p class="card-text description px-3">${pet.description}</p>
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link ${active == "pets" ? "active" : ""}" id="pets-tab" data-toggle="tab" href="#pets" role="tab" aria-controls="pets" aria-selected="true">Мои Питомцы</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link ${active == "posts" ? "active" : ""}" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="false">Мои посты</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade ${active == "pets" ? "show active" : ""}" id="pets" role="tabpanel" aria-labelledby="pets-tab">
+                    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_VIEW)">
+                        <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_EDIT)">
+                            <div class="btn-panel"><a href="/pet/${user.id}/0" class="btn btn-primary"><i
+                                    class="fa fa-plus mr-2"></i>Добавить питомца</a></div>
+                        </sec:authorize>
+                        <div class="row">
+                            <c:forEach var="pet" items="${user.pets}">
+                                <div class="col col-sm-4">
+                                    <t:pet-card userId="${user.id}" pet="${pet}"/>
                                 </div>
-                                <sec:authorize
-                                        access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PET_EDIT)">
-                                    <div class="card-footer bg-white text-sm-center size">
-                                        <a class="btn btn-link btn-sm text-info" href="/pet/${user.id}/${pet.id}"><i
-                                                class="fa fa-pen"></i> Редактировать</a>
-                                        <a class="btn btn-link btn-sm text-danger" href="#"
-                                           onclick="removePet(${pet.id})"><i
-                                                class="fa fa-times"></i> Удалить</a>
-                                    </div>
-                                </sec:authorize>
-                            </div>
+                            </c:forEach>
                         </div>
-                    </c:forEach>
+                    </sec:authorize>
                 </div>
-            </sec:authorize>
+                <div class="tab-pane fade ${active == "posts" ? "show active" : ""}" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                    <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_POST_VIEW)">
+                        <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_POST_EDIT)">
+                            <div class="btn-panel"><a href="/post/${user.id}/0" class="btn btn-primary"><i
+                                    class="fa fa-plus mr-2"></i>Добавить сообщение</a></div>
+                        </sec:authorize>
+                        <div class="row">
+                            <c:forEach var="post" items="${user.posts}">
+                                <div class="col col-sm-4">
+                                    <t:user-post-card post="${post}" userId="${user.id}"/>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </sec:authorize>
+                </div>
+            </div>
+
+
         </div>
     </div>
-    <script>
-        function removePet(petId) {
-            $.ajax({
-                url: '/pet/remove/' + petId,
-                method: 'DELETE'
-            }).done(function (data) {
-                console.log(data);
-            });
-        }
-    </script>
 </t:base-page>
 
