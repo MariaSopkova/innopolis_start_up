@@ -13,4 +13,6 @@ public class Actions {
     public static final String USER_LIST_VIEW = "USER_LIST_VIEW";
     public static final String USER_PET_EDIT = "USER_PET_EDIT";
     public static final String USER_PET_VIEW = "USER_PET_VIEW";
+    public static final String USER_POST_VIEW = "USER_POST_VIEW";
+    public static final String USER_POST_EDIT = "USER_POST_EDIT";
 }

@@ -29,10 +29,10 @@
 
 </head>
 <body>
-    <t:nav-bar></t:nav-bar>
-    <div class="container">
-        <jsp:doBody/>
-    </div>
+<t:nav-bar></t:nav-bar>
+<div class="container">
+    <jsp:doBody/>
+</div>
 <!-- Bootstrap core JavaScript -->
 <script src="${jqueryJs}"></script>
 <script src="${bootstrapJs}"></script>
@@ -42,6 +42,7 @@
 <script src="/resources/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 <!-- Custom scripts for this template -->
 <script src="${creativeJs}"></script>
+<script src="/resources/js/mvc-helper.js"></script>
 
 </body>
 </html>

@@ -2,9 +2,7 @@ package ru.innopolis.stc12.pojo;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * Class models for {@link User}
@@ -29,7 +27,8 @@ public class User implements Serializable {
     private String email;
     private String phone;
     private List<RoleAction> roleActions = new ArrayList<>();
-    private List<Pet> pets = new ArrayList<>();
+    private Set<Pet> pets = new HashSet<>();
+    private Set<UserPost> posts = new HashSet<>();
 
     public User(String name,
                 String familyName,
@@ -228,12 +227,21 @@ public class User implements Serializable {
     }
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
-    public List<Pet> getPets() {
+    public Set<Pet> getPets() {
         return pets;
     }
 
-    public void setPets(List<Pet> pets) {
+    public void setPets(Set<Pet> pets) {
         this.pets = pets;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public Set<UserPost> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<UserPost> posts) {
+        this.posts = posts;
     }
 
     @Override

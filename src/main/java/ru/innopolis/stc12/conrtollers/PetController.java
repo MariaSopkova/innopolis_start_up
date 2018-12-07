@@ -44,7 +44,7 @@ public class PetController {
 
         if (validatePet(model, pet) && petService.persistUserPet(pet, userId)) {
             model.addAttribute("result", "Успешно " + (petId > 0 ? "обновлено" : "добавлено"));
-            return "redirect:/userpage";
+            return "redirect:/userpage?active=posts";
         } else {
             model.addAttribute("pet", pet);
             return "petEditor";
@@ -77,7 +77,7 @@ public class PetController {
     @RequestMapping(value = "/pet/remove/{id}", method = RequestMethod.DELETE)
     public String removePet(@PathVariable("id") int petId) {
         petService.removePet(petId);
-        return "redirect:/userpage/";
+        return "redirect:/userpage?active=posts";
     }
 
     private boolean validatePet(Model model, Pet pet) {
