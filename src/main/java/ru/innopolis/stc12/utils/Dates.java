@@ -11,6 +11,12 @@ public final class Dates {
         throw new AssertionError();
     }
 
+    public static Date lastDate() {
+        Calendar calendar = getInstance();
+        calendar.set(2999, Calendar.DECEMBER, 31);
+        return calendar.getTime();
+    }
+
     public static int yearsBetween(Date first, Date last) {
         Calendar a = getCalendar(first);
         Calendar b = getCalendar(last);

@@ -77,7 +77,7 @@ public class PetController {
     @RequestMapping(value = "/pet/remove/{id}", method = RequestMethod.DELETE)
     public String removePet(@PathVariable("id") int petId) {
         petService.removePet(petId);
-        return "redirect:/userpage/";
+        return "redirect:/userpage";
     }
 
     private boolean validatePet(Model model, Pet pet) {
