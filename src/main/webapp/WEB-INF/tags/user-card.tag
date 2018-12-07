@@ -10,7 +10,7 @@
         </c:if>
         <c:if test="${empty user.avaLink}">
             <div class="no-ava bg-dark p-5">
-                <i class="far fas-user"></i>
+                <i class="fas fa-user"></i>
             </div>
         </c:if>
     </div>
