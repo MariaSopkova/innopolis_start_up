@@ -61,6 +61,6 @@ public class UserController {
         user.setAge(userAge);
         userService.updateUser(user);
         model.addAttribute("user", userService.getUserById(id));
-        return "redirect:/useredit/" + id;//собираем адрес страницы и делаем редирект. Проверяем сохранились ли данные
+        return "redirect:/userpage";//собираем адрес страницы и делаем редирект. Проверяем сохранились ли данные
     }
 }

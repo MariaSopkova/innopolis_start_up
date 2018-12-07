@@ -17,7 +17,9 @@ import ru.innopolis.stc12.service.UserService;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.Map;
+import java.util.Properties;
 
 @Controller
 public class FileController {
@@ -41,10 +43,19 @@ public class FileController {
                 fos.write(file.getBytes());
                 fos.close();
 
+                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+                InputStream input = classLoader.getResourceAsStream("cloudinary.properties");
+                Properties props = new Properties();
+                props.load(input);
+
+                String myCloudName = props.getProperty("cloud_name");
+                String myApiKey = props.getProperty("api_key");
+                String myApiSecret = props.getProperty("api_secret");
+
                 Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", "hqyl9bsuz",
-                        "api_key", "547785813189331",
-                        "api_secret", "lPnaz0xY2h2n8G9sZLp6zVzs6Bg"));
+                        "cloud_name", myCloudName,
+                        "api_key", myApiKey,
+                        "api_secret", myApiSecret));
 
                 Map uploadResult = cloudinary.uploader().upload(uploadFile, ObjectUtils.emptyMap());
                 User user = userService.getUserById(id);
