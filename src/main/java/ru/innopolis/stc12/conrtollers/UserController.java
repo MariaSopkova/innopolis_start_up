@@ -8,13 +8,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.innopolis.stc12.pojo.Pet;
 import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.security.SecurityUtils;
 import ru.innopolis.stc12.service.UserService;
-
-import java.util.Date;
 
 @Controller
 public class UserController {
@@ -31,6 +28,14 @@ public class UserController {
         User user = userService.getUserByLogin(SecurityUtils.getAuthenticatedUsername());
         model.addAttribute("user", user);
         return "userpage";
+    }
+
+    @Secured(Actions.USER_PROFILE_VIEW)
+    @RequestMapping(value = "/userpage/{id}", method = RequestMethod.GET)
+    public String showUserPage(@PathVariable("id") int id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "userview";
     }
 
     /*

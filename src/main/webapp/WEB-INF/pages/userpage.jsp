@@ -5,30 +5,10 @@
 <t:base-page>
 
     <c:set var="active" value="${(empty param.active) ? 'pets' : param.active}" />
-    Active is ${active}
 
     <div class="row">
         <div class="col-sm-3">
-            <div class="user-personal bg-light p-3 rounded">
-                <div class="user-logo mb-3">
-                    <img src="${user.avaLink}" class="img-fluid rounded w-100">
-                </div>
-                <div class="user-personal-data">
-                    <h5>${user.name} ${user.familyName}</h5>
-
-                    <div class="personal-data--item">
-                        <div class="font-weight-bold">Город</div>
-                        <div>${user.city}</div>
-                    </div>
-                    <div class="personal-data--item">
-                        <div class="font-weight-bold">Возраст</div>
-                        <div>${user.age}</div>
-                    </div>
-                    <div class="py-3">
-                        <a class="btn btn-sm btn-primary" href="useredit/${user.id}">Редактировать</a>
-                    </div>
-                </div>
-            </div>
+            <t:user-card editable="true" user="${user}"/>
         </div>
         <div class="col-sm-9">
             <div class="text-success">${result}</div>
