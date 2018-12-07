@@ -5,7 +5,6 @@
 
 <div class="user-personal bg-light p-3 rounded">
     <div class="user-logo mb-3">
-        ${user.avaLink}
         <c:if test="${not empty user.avaLink}">
             <img src="${user.avaLink}" class="img-fluid rounded w-100">
         </c:if>
