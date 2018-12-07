@@ -2,12 +2,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="c1" uri="http://cloudinary.com/jsp/taglib" %>
 <t:base-page>
     <div class="row">
         <div class="col-sm-3">
             <div class="user-personal bg-light p-3 rounded">
                 <div>
-                    <iframe src="${user.avaLink}" class="img-fluid rounded"></iframe>
+                    <img src="${user.avaLink}" class="img-fluid rounded">
                 </div>
                 <div class="user-personal-data">
                     <h5>${user.name} ${user.familyName}</h5>
