@@ -18,6 +18,7 @@ public class Pet implements Serializable {
     private int motherId;
     private int fatherId;
     private User user;
+    private String avaLink;
 
     public Pet() {
     }
@@ -119,6 +120,16 @@ public class Pet implements Serializable {
         this.user = user;
         return this;
     }
+
+    @Column(name = "ava_link")
+    public String getAvaLink() {
+        return avaLink;
+    }
+
+    public void setAvaLink(String avaLink) {
+        this.avaLink = avaLink;
+    }
+
 
     @Override
     public boolean equals(Object o) {

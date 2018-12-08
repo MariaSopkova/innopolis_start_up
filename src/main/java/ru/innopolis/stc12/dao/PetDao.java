@@ -8,4 +8,6 @@ public interface PetDao {
     Pet getPet(int petId);
 
     void removePet(int petId);
+
+    void updatePet(Pet pet);
 }
