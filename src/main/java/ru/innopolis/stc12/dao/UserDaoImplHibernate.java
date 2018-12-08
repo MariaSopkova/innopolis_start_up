@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.dao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -16,7 +17,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserDaoImplHibernate implements UserDao {
-
+    private static final Logger logger = Logger.getLogger(UserDaoImplHibernate.class);
     private SessionFactory sessionFactory;
 
     @Autowired

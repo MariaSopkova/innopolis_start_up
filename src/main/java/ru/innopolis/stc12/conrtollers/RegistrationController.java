@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import ru.innopolis.stc12.service.registration.UserRegistrationService;
 
 @Controller
 public class RegistrationController {
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private UserRegistrationService registrationService;
 
     @Autowired
@@ -36,7 +38,7 @@ public class RegistrationController {
     private boolean checkDataAndSetErrorFields(Model model, RegistrationPageDTO user) {
         boolean result = checkFirstName(model, user);
         result &= checkSurname(model, user);
-        result &= checkPassord(model, user);
+        result &= checkPassword(model, user);
         result &= checkEmail(model, user);
         result &= checkLogin(model, user);
         return result;
@@ -60,7 +62,7 @@ public class RegistrationController {
         }
     }
 
-    private boolean checkPassord(Model model, RegistrationPageDTO user) {
+    private boolean checkPassword(Model model, RegistrationPageDTO user) {
         boolean result = true;
         if (registrationService.isPasswordEmpty(user)) {
             model.addAttribute("passwordError", "Не введен пароль");

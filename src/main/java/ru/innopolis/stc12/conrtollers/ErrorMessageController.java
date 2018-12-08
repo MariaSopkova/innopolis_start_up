@@ -1,17 +1,18 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
 
 @Controller
 public class ErrorMessageController {
+    private static final Logger logger = Logger.getLogger(ErrorMessageController.class);
     private static final String PATH = "errors/error-";
     private boolean isProd;
 

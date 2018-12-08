@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Controller
 public class UsersListController {
+    private static final Logger logger = Logger.getLogger(UsersListController.class);
     private UserService userService;
 
     @Autowired

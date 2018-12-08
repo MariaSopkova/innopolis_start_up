@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import ru.innopolis.stc12.service.UserService;
 
 @Controller
 public class UserController {
+    private static final Logger logger = Logger.getLogger(UserController.class);
     private UserService userService;
 
     @Autowired
@@ -67,6 +69,6 @@ public class UserController {
         user.setAge(userAge);
         userService.updateUser(user);
         model.addAttribute("user", userService.getUserById(id));
-        return "redirect:/useredit/" + id;//собираем адрес страницы и делаем редирект. Проверяем сохранились ли данные
+        return "redirect:/userpage";//собираем адрес страницы и делаем редирект. Проверяем сохранились ли данные
     }
 }

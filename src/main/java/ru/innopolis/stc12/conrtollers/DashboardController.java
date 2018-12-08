@@ -1,5 +1,6 @@
 package ru.innopolis.stc12.conrtollers;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import ru.innopolis.stc12.service.post.PostService;
 
 @Controller
 public class DashboardController {
+    private static final Logger logger = Logger.getLogger(DashboardController.class);
     private UserService userService;
     private PostService postService;
 
