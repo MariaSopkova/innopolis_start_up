@@ -23,7 +23,7 @@
         <c:forEach var="user" items="${users}">
             <tr>
                 <th scope="row">${user.id}</th>
-                <td>${user.login}</td>
+                <td><a class="mr-3" href="userpage">${user.login}</a></td>
                 <td>${user.name}</td>
                 <td>${user.gender}</td>
                 <td>${user.city}</td>
