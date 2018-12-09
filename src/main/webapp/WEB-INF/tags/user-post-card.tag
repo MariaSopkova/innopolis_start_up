@@ -6,6 +6,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="card ${post.style}">
+    <c:if test="${not empty post.imgLink}">
+        <img src="${post.imgLink}" class="card-img-top">
+    </c:if>
     <div class="card-body p-0">
         <h5 class="card-title pt-3 px-3">${post.title}</h5>
         <p class="card-text description px-3">${post.body}</p>

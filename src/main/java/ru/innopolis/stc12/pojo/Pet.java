@@ -126,8 +126,9 @@ public class Pet implements Serializable {
         return avaLink;
     }
 
-    public void setAvaLink(String avaLink) {
+    public Pet setAvaLink(String avaLink) {
         this.avaLink = avaLink;
+        return this;
     }
 
 

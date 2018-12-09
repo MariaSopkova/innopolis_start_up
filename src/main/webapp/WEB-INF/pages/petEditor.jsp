@@ -17,18 +17,11 @@
                 <div>
                     <img src="${pet.avaLink}" class="img-fluid rounded">
                 </div>
-                <form action="updatePetAvatar/${pet.id}" method="post" enctype="multipart/form-data">
-                    <div class="input-group mt-2">
-                        <div class="custom-file">
-                            <input type="file" id="ava-file" name="file">
-                        </div>
-                        <div class="input-group-append">
-                            <button class="btn btn-secondary" type="submit">Обновить аватар</button>
-                        </div>
+                <form method="post" enctype="multipart/form-data">
+                    <div class="custom-file">
+                        <input type="file" id="ava-file" name="file">
                     </div>
-                </form>
-
-                <form method="post">
+                    <input type="hidden" value="${pet.avaLink}" name="avaLink">
                     <div class="form-group">
                         <label for="name">Имя:</label>
                         <div class="text-danger">${nameError}</div>

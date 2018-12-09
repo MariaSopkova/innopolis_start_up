@@ -22,15 +22,17 @@
                         <a class="nav-link" href="/userslist">Пользователи <span class="sr-only">Пользователи</span></a>
                     </li>
                 </sec:authorize>
+                <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/userpage">Профиль <span class="sr-only">Профиль</span></a>
+                    </li>
+                </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <li class="nav-item dropdown ">
                         <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <sec:authentication property="principal.username"/>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <sec:authorize access="hasAuthority(T(ru.innopolis.stc12.security.Actions).USER_PROFILE_VIEW)">
-                                <a class="dropdown-item" href="/userpage">Профиль <span class="sr-only">Профиль</span></a>
-                            </sec:authorize>
                             <a class="dropdown-item text-danger" href="/static/j_spring_security_logout">Выйти</a>
                         </div>
                     </li>

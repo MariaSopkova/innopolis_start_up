@@ -12,9 +12,8 @@
             <t:user-card editable="true" user="${user}"/>
         </div>
         <div class="col-sm-9">
-            <div class="text-success">${result}</div>
-            <div class="text-error">${error}</div>
-
+            <t:alert message="${result}" style="success"/>
+            <t:alert message="${error}" style="danger"/>
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link ${active == "pets" ? "active" : ""}" id="pets-tab" data-toggle="tab" href="#pets" role="tab" aria-controls="pets" aria-selected="true">Мои Питомцы</a>

@@ -1,33 +1,32 @@
 package ru.innopolis.stc12.conrtollers;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
 import ru.innopolis.stc12.security.SecurityUtils;
 import ru.innopolis.stc12.service.UserService;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.Properties;
+import ru.innopolis.stc12.service.file.FileUploadService;
 
 @Controller
 public class UserController {
     private static final Logger logger = Logger.getLogger(UserController.class);
     private UserService userService;
+    private FileUploadService uploadService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public UserController(UserService userService, FileUploadService uploadService) {
         this.userService = userService;
+        this.uploadService = uploadService;
     }
 
     @Secured(Actions.USER_PROFILE_VIEW)
@@ -46,6 +45,14 @@ public class UserController {
         return "userview";
     }
 
+    @Secured(Actions.USER_PROFILE_EDIT)
+    @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
+    public String showUserProfile(@PathVariable("id") int id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        return "userpage";
+    }
+
     /*
      * Обработка при перезходе на страницу редактирования
      * */
@@ -57,67 +64,35 @@ public class UserController {
     }
 
     /*
-     *Обработка нажатия кнопки "Сохранить"
+     * Обработка нажатия кнопки "Сохранить"
      */
     @Secured({Actions.USER_PROFILE_EDIT, Actions.USER_PROFILE_VIEW})
     @RequestMapping(value = "/submit/{id}", method = RequestMethod.POST)
     public String updateUser(
             @PathVariable("id") int id,
+            @RequestParam(value = "avaLink") String avaLink,
             @RequestParam(value = "firstName", required = true) String userName,
             @RequestParam(value = "lastName", required = true) String userLastNamme,
             @RequestParam(value = "city", required = true) String userCity,
             @RequestParam(value = "age", required = true) int userAge,
-            Model model) {
+            @RequestParam("file") MultipartFile file,
+            Model model,
+            RedirectAttributes redir) {
         User user = userService.getUserById(id);
         user.setName(userName);
         user.setFamilyName(userLastNamme);
         user.setCity(userCity);
         user.setAge(userAge);
+        user.setAge(userAge);
+        String newAvaLink = uploadService.uploadMultipartFile(file);
+        if (!newAvaLink.isEmpty()) {
+            user.setAvaLink(newAvaLink);
+        } else {
+            user.setAvaLink(avaLink);
+        }
         userService.updateUser(user);
         model.addAttribute("user", userService.getUserById(id));
+        redir.addFlashAttribute("result", "Успешно сохранено");
         return "redirect:/userpage";//собираем адрес страницы и делаем редирект. Проверяем сохранились ли данные
-    }
-
-    @Secured({Actions.USER_PROFILE_EDIT, Actions.USER_PROFILE_VIEW})
-    @PostMapping(value = "useredit/updateAvatar/{id}")
-    public String uploadFile(@PathVariable("id") int id, @RequestParam("file") MultipartFile file, Model model) {// имена параметров - как на форме jsp
-        if (!file.isEmpty()) {
-            try {
-                File uploadFile = new File(file.getOriginalFilename());
-                uploadFile.createNewFile();
-                FileOutputStream fos = new FileOutputStream(uploadFile);
-                fos.write(file.getBytes());
-                fos.close();
-
-                ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                InputStream input = classLoader.getResourceAsStream("cloudinary.properties");
-                Properties props = new Properties();
-                props.load(input);
-
-                String myCloudName = props.getProperty("cloud_name");
-                String myApiKey = props.getProperty("api_key");
-                String myApiSecret = props.getProperty("api_secret");
-
-                Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", myCloudName,
-                        "api_key", myApiKey,
-                        "api_secret", myApiSecret));
-
-                Map uploadResult = cloudinary.uploader().upload(uploadFile, ObjectUtils.emptyMap());
-                User user = userService.getUserById(id);
-                user.setAvaLink((String) uploadResult.get("url"));
-                userService.updateUser(user);
-                logger.info("User " + user.getName() + " " + user.getFamilyName() + " change avatar");
-                model.addAttribute("user", userService.getUserById(id));
-                return "redirect:/useredit/" + id;
-
-            } catch (Exception e) {
-                logger.error(e);
-                return e.getMessage();
-            }
-        } else {
-            logger.error("file is empty");
-            return "file is empty";
-        }
     }
 }
