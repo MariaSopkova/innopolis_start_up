@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.innopolis.stc12.pojo.Pet;
 import ru.innopolis.stc12.pojo.User;
 import ru.innopolis.stc12.security.Actions;
+import ru.innopolis.stc12.service.file.FileUploadService;
 import ru.innopolis.stc12.service.pet.PetService;
 
 import java.io.File;
@@ -25,23 +27,28 @@ import java.util.Properties;
 public class PetController {
     private static final Logger logger = Logger.getLogger(UserController.class);
     private PetService petService;
+    private FileUploadService uploadService;
 
     @Autowired
-    public void setPetService(PetService petService) {
+    public PetController(PetService petService, FileUploadService uploadService) {
         this.petService = petService;
+        this.uploadService = uploadService;
     }
 
     /*
      * Добавление питомца
      */
     @RequestMapping(value = "/pet/{user_id}/{id}", method = RequestMethod.POST)
-    public String addPet(
+    public String createOrUpdatePet(
             @PathVariable("user_id") int userId,
             @PathVariable("id") int petId,
+            @RequestParam(value = "avaLink") String avaLink,
             @RequestParam(value = "name") String name,
             @RequestParam(value = "breed") String breed,
             @RequestParam(value = "description") String description,
-            Model model) {
+            @RequestParam("file") MultipartFile file,
+            Model model,
+            RedirectAttributes redir) {
 
         Pet pet = new Pet()
                 .setId(petId)
@@ -49,10 +56,16 @@ public class PetController {
                 .setDateOfBirth(new Date())
                 .setBreed(breed.trim())
                 .setDescription(description)
+                .setAvaLink(avaLink)
                 .setName(name);
 
+        String newAvaLink = uploadService.uploadMultipartFile(file);
+        if (!newAvaLink.isEmpty()) {
+            pet.setAvaLink(newAvaLink);
+        }
+
         if (validatePet(model, pet) && petService.persistUserPet(pet, userId)) {
-            model.addAttribute("result", "Успешно " + (petId > 0 ? "обновлено" : "добавлено"));
+            redir.addFlashAttribute("result", "Успешно " + (petId > 0 ? "обновлено" : "добавлено"));
             return "redirect:/userpage";
         } else {
             model.addAttribute("pet", pet);

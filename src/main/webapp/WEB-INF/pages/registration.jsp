@@ -8,34 +8,33 @@
           style="display: block;">
 
       <div class="form-group">
-              ${firstNameError}
+        <div class="text-danger">${firstNameError}</div>
         <input accept-charset="UTF-8" type="text" name="firstName" id="firstName" tabindex="1" class="form-control"
                placeholder="Имя" value="">
       </div>
       <div class="form-group">
-          ${surnameError}
+        <div class="text-danger">${surnameError}</div>
         <input accept-charset="UTF-8" type="text" name="surname" id="surname" tabindex="2" class="form-control"
                placeholder="Фамилия" value="">
       </div>
       <div class="form-group">
-          ${loginError}
+        <div class="text-danger">${loginError}</div>
         <input type="text" name="login" id="login" tabindex="3" class="form-control"
                placeholder="Логин" value="">
       </div>
 
-      <div class="form-group">
-          ${emailError}
+      <div class="form-group"><div class="text-danger">${emailError}</div>
          <input type="text" name="email" id="email" tabindex="4" class="form-control"
          placeholder="Электронная почта" value="">
       </div>
 
       <div class="form-group">
-          ${passwordError}
+        <div class="text-danger">${passwordError}</div>
         <input type="password" name="password" id="password" tabindex="5" class="form-control"
                placeholder="Пароль">
       </div>
       <div class="form-group">
-          ${passwordDoubleError}
+        <div class="text-danger">${passwordDoubleError}</div>
         <input type="password" name="passwordDouble" id="passwordDouble" tabindex="6" class="form-control"
                placeholder="Повторите пароль">
       </div>

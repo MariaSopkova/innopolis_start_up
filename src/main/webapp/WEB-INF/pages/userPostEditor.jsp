@@ -14,7 +14,14 @@
         <h2>${title}</h2>
         <div class="row">
             <div class="col-12 col-sm-6">
-                <form method="post">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="postTitle">Изображение:</label>
+                        <div class="custom-file">
+                            <input type="file" id="ava-file" name="file">
+                        </div>
+                        <input type="hidden" value="${post.imgLink}" name="imgLink">
+                    </div>
                     <div class="form-group">
                         <label for="postTitle">Заголовок:</label>
                         <div class="text-danger">${postTitleError}</div>

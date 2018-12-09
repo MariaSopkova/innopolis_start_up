@@ -20,18 +20,11 @@
             <div>
                 <img src="${user.avaLink}" class="img-fluid rounded">
             </div>
-            <form action="updateAvatar/${user.id}" method="post" enctype="multipart/form-data">
-                <div class="input-group mt-2">
-                    <div class="custom-file">
-                        <input type="file" id="ava-file" name="file">
-                    </div>
-                    <div class="input-group-append">
-                        <button class="btn btn-secondary" type="submit">Обновить аватар</button>
-                    </div>
+            <form action="/submit/${user.id}" method="post" enctype="multipart/form-data">
+                <div class="custom-file">
+                    <input type="file" id="ava-file" name="file">
                 </div>
-            </form>
-
-            <form action="/submit/${user.id}" method="post">
+                <input type="hidden" value="${user.avaLink}" name="avaLink">
                 <div class="form-group">
                     <label for="firstName">Имя:</label>
                     <input class="form-control" type="text" id="firstName" name="firstName" value=${user.name}>

@@ -13,6 +13,7 @@ public class UserPost implements Serializable {
     private String title;
     private String body;
     private String style;
+    private String imgLink;
     private User user;
 
     public UserPost() {
@@ -77,6 +78,16 @@ public class UserPost implements Serializable {
 
     public UserPost setStyle(String style) {
         this.style = style;
+        return this;
+    }
+
+    @Column(name = "img_link")
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public UserPost setImgLink(String imgLink) {
+        this.imgLink = imgLink;
         return this;
     }
 
