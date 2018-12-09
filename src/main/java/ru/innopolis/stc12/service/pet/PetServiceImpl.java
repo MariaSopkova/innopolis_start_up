@@ -33,4 +33,12 @@ public class PetServiceImpl implements PetService {
     public void removePet(int petId) {
         petDao.removePet(petId);
     }
+
+    @Override
+    @Secured(Actions.USER_PET_EDIT)
+    public void updatePet(Pet pet) {
+        petDao.updatePet(pet);
+    }
+
+
 }

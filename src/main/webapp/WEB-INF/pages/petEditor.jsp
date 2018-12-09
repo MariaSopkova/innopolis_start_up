@@ -14,6 +14,20 @@
         <h2>${title}</h2>
         <div class="row">
             <div class="col-12 col-sm-6">
+                <div>
+                    <img src="${pet.avaLink}" class="img-fluid rounded">
+                </div>
+                <form action="updatePetAvatar/${pet.id}" method="post" enctype="multipart/form-data">
+                    <div class="input-group mt-2">
+                        <div class="custom-file">
+                            <input type="file" id="ava-file" name="file">
+                        </div>
+                        <div class="input-group-append">
+                            <button class="btn btn-secondary" type="submit">Обновить аватар</button>
+                        </div>
+                    </div>
+                </form>
+
                 <form method="post">
                     <div class="form-group">
                         <label for="name">Имя:</label>

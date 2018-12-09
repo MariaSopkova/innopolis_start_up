@@ -42,4 +42,12 @@ public class PetDaoImpl implements PetDao {
         Session session = sessionFactory.getCurrentSession();
         session.delete(new Pet().setId(petId));
     }
+
+    @Override
+    public void updatePet(Pet pet) {
+        Session session = sessionFactory.getCurrentSession();
+        if (pet.getId() > 0) {
+            session.update(pet);
+        }
+    }
 }

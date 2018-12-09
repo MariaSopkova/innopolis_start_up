@@ -5,7 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="card">
-    <img class="card-img-top" src="/img/header2.jpg" alt="Мой питомец">
+    <img src="${pet.avaLink}" class="card-img-top" alt="Мой питомец">
     <div class="card-body p-0">
         <h5 class="card-title pt-3 px-3">${pet.name}</h5>
         <p class="card-text description p-3">${pet.description}</p>

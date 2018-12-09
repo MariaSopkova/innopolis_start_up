@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-12 col-sm-6">
             <div>
-                <iframe src="${user.avaLink}" class="img-fluid rounded"></iframe>
+                <img src="${user.avaLink}" class="img-fluid rounded">
             </div>
             <form action="updateAvatar/${user.id}" method="post" enctype="multipart/form-data">
                 <div class="input-group mt-2">
