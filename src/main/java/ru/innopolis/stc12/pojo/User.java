@@ -1,17 +1,21 @@
 package ru.innopolis.stc12.pojo;
 
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 
 /**
  * Class models for {@link User}
  */
+@Entity
+@Table(name = "users")
 public class User implements Serializable {
     private int id;
     private String name;
     private String familyName;
     private int age;
     private boolean isEnabled;
+    private boolean isDeleted;
     private String gender;
     private String role;
     private String language;
@@ -22,6 +26,9 @@ public class User implements Serializable {
     private String avaLink;
     private String email;
     private String phone;
+    private List<RoleAction> roleActions = new ArrayList<>();
+    private Set<Pet> pets = new HashSet<>();
+    private Set<UserPost> posts = new HashSet<>();
 
     public User(String name,
                 String familyName,
@@ -35,7 +42,9 @@ public class User implements Serializable {
                 String email,
                 String phone,
                 String city,
-                int petId, String avaLink) {
+                int petId,
+                String avaLink,
+                boolean isDeleted) {
 
         this.name = name;
         this.familyName = familyName;
@@ -51,19 +60,25 @@ public class User implements Serializable {
         this.city = city;
         this.petId = petId;
         this.avaLink = avaLink;
+        this.isDeleted = isDeleted;
     }
 
     public User() {
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public User setId(int id) {
         this.id = id;
+        return this;
     }
 
+    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -72,6 +87,7 @@ public class User implements Serializable {
         this.name = name;
     }
 
+    @Column(name = "family_name")
     public String getFamilyName() {
         return familyName;
     }
@@ -80,6 +96,7 @@ public class User implements Serializable {
         this.familyName = familyName;
     }
 
+    @Column(name = "age")
     public int getAge() {
         return age;
     }
@@ -88,14 +105,25 @@ public class User implements Serializable {
         this.age = age;
     }
 
+    @Column(name = "is_enabled")
     public boolean isEnabled() {
         return isEnabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.isEnabled = enabled;
     }
 
+    @Column(name = "is_deleted")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.isDeleted = deleted;
+    }
+
+    @Column(name = "gender")
     public String getGender() {
         return gender;
     }
@@ -104,6 +132,7 @@ public class User implements Serializable {
         this.gender = gender;
     }
 
+    @Column(name = "role")
     public String getRole() {
         return role;
     }
@@ -112,6 +141,7 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    @Column(name = "language")
     public String getLanguage() {
         return language;
     }
@@ -120,6 +150,7 @@ public class User implements Serializable {
         this.language = language;
     }
 
+    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -128,6 +159,7 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    @Column(name = "login")
     public String getLogin() {
         return login;
     }
@@ -136,6 +168,7 @@ public class User implements Serializable {
         this.login = login;
     }
 
+    @Column(name = "city")
     public String getCity() {
         return city;
     }
@@ -144,6 +177,7 @@ public class User implements Serializable {
         this.city = city;
     }
 
+    @Column(name = "pet_id")
     public int getPetId() {
         return petId;
     }
@@ -152,7 +186,7 @@ public class User implements Serializable {
         this.petId = petId;
     }
 
-
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -161,12 +195,56 @@ public class User implements Serializable {
         this.email = email;
     }
 
+    @Column(name = "phone")
     public String getPhone() {
         return phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    @Column(name = "ava_link")
+    public String getAvaLink() {
+        if (avaLink == null) {
+            return "";
+        }
+        return avaLink;
+    }
+
+    public void setAvaLink(String avaLink) {
+        this.avaLink = avaLink;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role", referencedColumnName = "role", updatable = false, insertable = false)
+    public List<RoleAction> getRoleActions() {
+        if (roleActions == null) {
+            return new ArrayList<>();
+        }
+        return Collections.unmodifiableList(roleActions);
+    }
+
+    public void setRoleActions(List<RoleAction> roleActions) {
+        this.roleActions = roleActions;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public Set<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(Set<Pet> pets) {
+        this.pets = pets;
+    }
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "user")
+    public Set<UserPost> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<UserPost> posts) {
+        this.posts = posts;
     }
 
     @Override
@@ -177,6 +255,7 @@ public class User implements Serializable {
                 ", familyName='" + familyName + '\'' +
                 ", age=" + age +
                 ", isEnabled=" + isEnabled +
+                ", isDeleted=" + isDeleted +
                 ", gender='" + gender + '\'' +
                 ", role='" + role + '\'' +
                 ", language='" + language + '\'' +
@@ -186,13 +265,5 @@ public class User implements Serializable {
                 ", email=" + email + '\'' +
                 ", phone=" + phone +
                 '}';
-    }
-
-    public String getAvaLink() {
-        return avaLink;
-    }
-
-    public void setAvaLink(String avaLink) {
-        this.avaLink = avaLink;
     }
 }

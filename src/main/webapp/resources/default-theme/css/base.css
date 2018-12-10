@@ -9,3 +9,36 @@ pre {
     white-space: -o-pre-wrap;    /* Opera 7 */
     word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
+#mainNav.bg-navbar {
+    background-color: #403b42;
+}
+.btn-panel {
+    margin-bottom: 20px ;
+}
+.tab-pane > .btn-panel {
+    margin-top: 20px;
+}
+.description {
+    max-height: 12em;
+    overflow-y: auto;
+}
+.personal-data--item{
+    margin-top: 10px;
+}
+.card.accent {
+    background-color: rgb(240, 95, 64);
+    color: #fff;
+}
+.card.accent .author {
+    text-align: right;
+}
+.card.accent .author a {
+    color:#fff;
+}
+.no-ava {
+    text-align: center;
+}
+.no-ava i {
+    color: #fff;
+    font-size:5rem;
+}

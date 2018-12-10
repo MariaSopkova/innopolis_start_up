@@ -1,43 +1,66 @@
 package ru.innopolis.stc12.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.innopolis.stc12.dao.UserDao;
 import ru.innopolis.stc12.pojo.User;
-import ru.innopolis.stc12.security.Actions;
-import ru.innopolis.stc12.security.SecurityUtils;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    private UserDao userDao;
+    private static final Logger logger = Logger.getLogger(UserServiceImpl.class);
+    private final UserDao userDao;
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 
     @Override
     public List<User> getUsersList() {
-        return userDao.getUsersList();
+        return userDao.getUsersList()
+                .stream()
+                .sorted(Comparator.comparingInt(User::getId))
+                .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public User getUserByLogin(String login) {
         return userDao.getUserByLogin(login);
     }
 
+    @Transactional
     @Override
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }
 
     @Override
-    public void addUser(String name, String familyName, int age, boolean isEnabled, String gender, String role, String language, String password, String login, String email, String phone, String city, int petId, String avaLink) {
-        User newUser = new User(name,
+    public void addUser(
+            String name,
+            String familyName,
+            int age,
+            boolean isEnabled,
+            String gender,
+            String role,
+            String language,
+            String password,
+            String login,
+            String email,
+            String phone,
+            String city,
+            int petId,
+            String avaLink,
+            boolean isDeleted) {
+
+        User newUser = new User(
+                name,
                 familyName,
                 age,
                 isEnabled,
@@ -50,17 +73,23 @@ public class UserServiceImpl implements UserService {
                 phone,
                 city,
                 petId,
-                avaLink);
-        userDao.addUser(newUser);
+                avaLink,
+                isDeleted);
+
+        userDao.createUser(newUser);
     }
 
     @Override
+    @Transactional
     public boolean deleteUserById(int id) {
-        return userDao.deleteUserById(id);
+        User user = getUserById(id);
+        user.setDeleted(!user.isDeleted());
+        return updateUser(user);
     }
 
     @Override
     public boolean updateUser(User user) {
         return userDao.updateUser(user);
     }
+
 }

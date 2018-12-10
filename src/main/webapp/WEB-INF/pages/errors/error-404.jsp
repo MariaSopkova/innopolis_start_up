@@ -1,6 +1,8 @@
+<%@ page isErrorPage="true" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
-<%@page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <t:base-error>
-  <h1>404 Not Found</h1>
-  <p class="text-muted">The requested URL <code><%= request.getAttribute("javax.servlet.error.request_uri") %></code> was not found on this server.</p>
+  <h1>404</h1>
+  <h2>Страница не найдена</h2>
+  <p class="text-muted">Запрашиваемый URL не найден.</p>
+  ${pageContext.errorData.throwable.printStackTrace()}
 </t:base-error>
