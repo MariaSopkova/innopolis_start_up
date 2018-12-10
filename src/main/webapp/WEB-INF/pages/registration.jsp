@@ -10,22 +10,22 @@
       <div class="form-group">
         <div class="text-danger">${firstNameError}</div>
         <input accept-charset="UTF-8" type="text" name="firstName" id="firstName" tabindex="1" class="form-control"
-               placeholder="Имя" value="">
+               placeholder="Имя" value="${user.firstName}">
       </div>
       <div class="form-group">
         <div class="text-danger">${surnameError}</div>
         <input accept-charset="UTF-8" type="text" name="surname" id="surname" tabindex="2" class="form-control"
-               placeholder="Фамилия" value="">
+               placeholder="Фамилия" value="${user.surname}">
       </div>
       <div class="form-group">
         <div class="text-danger">${loginError}</div>
         <input type="text" name="login" id="login" tabindex="3" class="form-control"
-               placeholder="Логин" value="">
+               placeholder="Логин" value="${user.login}">
       </div>
 
       <div class="form-group"><div class="text-danger">${emailError}</div>
          <input type="text" name="email" id="email" tabindex="4" class="form-control"
-         placeholder="Электронная почта" value="">
+         placeholder="Электронная почта" value="${user.email}">
       </div>
 
       <div class="form-group">

@@ -27,19 +27,19 @@
                 <input type="hidden" value="${user.avaLink}" name="avaLink">
                 <div class="form-group">
                     <label for="firstName">Имя:</label>
-                    <input class="form-control" type="text" id="firstName" name="firstName" value=${user.name}>
+                    <input class="form-control" type="text" id="firstName" name="firstName" value="${user.name}">
                 </div>
                 <div class="form-group">
                     <label for="lastName">Фамилия:</label>
-                    <input class="form-control" type="text" id="lastName" name="lastName" value=${user.familyName}>
+                    <input class="form-control" type="text" id="lastName" name="lastName" value="${user.familyName}">
                 </div>
                 <div class="form-group">
                     <label for="city">Город:</label>
-                    <input class="form-control" type="text" id="city" name="city" value=${user.city}>
+                    <input class="form-control" type="text" id="city" name="city" value="${user.city}">
                 </div>
                 <div class="form-group">
                     <label for="city">Возраст:</label>
-                    <input class="form-control" type="number" min="3" id="age" name="age" value=${user.age}>
+                    <input class="form-control" type="number" min="3" id="age" name="age" value="${user.age}">
                 </div>
                 <button type="submit" class="btn btn-primary">Сохранить</button>
             </form>

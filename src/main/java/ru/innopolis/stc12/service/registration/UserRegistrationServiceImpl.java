@@ -86,6 +86,12 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
         return userDao.getUserByLogin(registrationInfo.getLogin()) == null;
     }
 
+    @Override
+    public boolean validateLength(String val, int len) {
+        return val != null && val.length() <= len;
+
+    }
+
     private User convertUserDtpToUserPojo(RegistrationPageDTO pageDTO) {
         User user = new User();
         user.setRole(Roles.ROLE_USER);
