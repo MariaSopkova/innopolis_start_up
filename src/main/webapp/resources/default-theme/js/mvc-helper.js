@@ -3,14 +3,17 @@ function removePet(petId) {
         url: '/pet/remove/' + petId,
         method: 'DELETE'
     }).done(function (data) {
-        console.log(data);
+
     });
+    location.reload();
 }
+
 function removePost(postId) {
     $.ajax({
         url: '/post/remove/' + postId,
         method: 'DELETE'
     }).done(function (data) {
-        console.log(data);
+
     });
+    location.reload();
 }

@@ -25,12 +25,12 @@
                     <div class="form-group">
                         <label for="name">Имя:</label>
                         <div class="text-danger">${nameError}</div>
-                        <input class="form-control" type="text" id="name" name="name" value=${pet.name}>
+                        <input class="form-control" type="text" id="name" name="name" value="${pet.name}">
                     </div>
                     <div class="form-group">
                         <label for="breed">Порода:</label>
                         <div class="text-danger">${breedError}</div>
-                        <input class="form-control" type="text" id="breed" name="breed" value=${pet.breed}>
+                        <input class="form-control" type="text" id="breed" name="breed" value="${pet.breed}">
                     </div>
                     <div class="form-group">
                         <label for="description">Описание:</label>

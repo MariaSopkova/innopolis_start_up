@@ -30,6 +30,7 @@ public class RegistrationController {
             Model model) {
         RegistrationPageDTO user = registrationService.createRegistrationPageInfoData(firstName, surname, login, email, password, passwordDouble);
         if (!checkDataAndSetErrorFields(model, user)) {
+            model.addAttribute("user", user);
             return "registration";
         }
         return addUser(user) ? "emailCheck" : "registration";
@@ -45,21 +46,26 @@ public class RegistrationController {
     }
 
     private boolean checkFirstName(Model model, RegistrationPageDTO user) {
-        if (!registrationService.isFirstNameEmpty(user)) {
-            return true;
-        } else {
+        if (registrationService.isFirstNameEmpty(user)) {
             model.addAttribute("firstNameError", "Не указано имя");
             return false;
+        } else if (!registrationService.validateLength(user.getFirstName(), 30)) {
+            model.addAttribute("firstNameError", "Не должно быть больше 30 символов");
+            return false;
         }
+        return true;
     }
 
     private boolean checkSurname(Model model, RegistrationPageDTO user) {
-        if (!registrationService.isSurnameEmpty(user)) {
-            return true;
-        } else {
+        if (registrationService.isSurnameEmpty(user)) {
+
             model.addAttribute("surnameError", "Не указана фамилия");
             return false;
+        } else if (!registrationService.validateLength(user.getSurname(), 40)) {
+            model.addAttribute("surnameError", "Не должно быть больше 40 символов");
+            return false;
         }
+        return true;
     }
 
     private boolean checkPassword(Model model, RegistrationPageDTO user) {
@@ -88,6 +94,9 @@ public class RegistrationController {
             return false;
         } else if (!registrationService.isEmailUnique(user)) {
             model.addAttribute("emailError", "Данный emal уже используется");
+            return false;
+        } else if (!registrationService.validateLength(user.getEmail(), 256)) {
+            model.addAttribute("emailError", "Не должно быть больше 256 символов");
             return false;
         }
         return true;

@@ -25,7 +25,7 @@
                     <div class="form-group">
                         <label for="postTitle">Заголовок:</label>
                         <div class="text-danger">${postTitleError}</div>
-                        <input class="form-control" type="text" id="postTitle" name="postTitle" value=${post.title}>
+                        <input class="form-control" type="text" id="postTitle" name="postTitle" value="${post.title}">
                     </div>
                     <div class="form-group">
                         <label for="postBody">Сообщение:</label>
