@@ -27,7 +27,7 @@
         </div>
         <c:if test="${editable}">
             <div class="py-3">
-                <a class="btn btn-sm btn-primary" href="useredit/${user.id}">Редактировать</a>
+                <a class="btn btn-sm btn-primary" href="/useredit/${user.id}">Редактировать</a>
             </div>
         </c:if>
     </div>
